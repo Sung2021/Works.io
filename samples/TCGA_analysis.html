@@ -7,7 +7,7 @@
 
         <meta name="author" content="Sung Rye Park" />
     
-        <meta name="date" content="2024-05-19" />
+        <meta name="date" content="2024-05-20" />
     
     <title>TCGA analysis</title>
 
@@ -1591,6 +1591,8 @@ margin-left: 0 !important;
         </ul>
         <nav role="navigation" id="toc">
           <ul>
+          <li><a href="#workflow-reference-paper" id="toc-workflow-reference-paper">Workflow reference
+          paper</a></li>
           <li><a href="#분석-using-maftools" id="toc-분석-using-maftools">분석 using maftools</a>
           <ul>
           <li><a href="#maf-파일-로드" id="toc-maf-파일-로드">MAF 파일
@@ -1608,13 +1610,15 @@ margin-left: 0 !important;
           </ul></li>
           <li><a href="#참고-자료" id="toc-참고-자료">참고 자료</a></li>
           <li><a href="#주요-기능" id="toc-주요-기능">주요 기능</a></li>
+          <li><a href="#key-differences-between-tcga-luad-and-tcga-lusc" id="toc-key-differences-between-tcga-luad-and-tcga-lusc">Key
+          Differences between TCGA-LUAD and TCGA-LUSC</a></li>
           </ul>
         </nav>
         <ul class="authors">
           <li class="divider"></li>
                                 <li><span><i class="glyphicon glyphicon-user"></i> Sung
 Rye Park</span></li>
-                                         <li><span><i class="glyphicon glyphicon-calendar"></i> 2024-05-19</span></li>
+                                         <li><span><i class="glyphicon glyphicon-calendar"></i> 2024-05-20</span></li>
                   </ul>     
       </div>
       <div class="book-body fixed">
@@ -1646,6 +1650,11 @@ Rye Park</span></li>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">library</span>(DT)</span>
 <span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="fu">library</span>(TCGAbiolinks)</span></code></pre></div>
+<div id="workflow-reference-paper" class="section level2">
+<h2>Workflow reference paper</h2>
+<p><a href="data/maftools%201-s2.0-S0888754324000302-main.pdf">Chinese
+CRC vs TCGA</a> <a href="https://www.sciencedirect.com/science/article/pii/S0888754324000302?via%3Dihub">Chinese
+CRC vs TCGA online</a></p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>dir <span class="ot">=</span> <span class="st">&quot;~/Desktop/git/template/TCGA/&quot;</span></span>
 <span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>data <span class="ot">=</span> <span class="fu">readRDS</span>(<span class="fu">paste0</span>(dir,<span class="st">&quot;data/data.rds&quot;</span>))</span></code></pre></div>
 <p>TCGA-LUAD<br />
@@ -1653,6 +1662,7 @@ Data Category: Simple Nucleotide Variation<br />
 Data Type: Masked Somatic Mutation (WES 데이터를 포함)</p>
 <p>194729 obs<br />
 141 variables</p>
+</div>
 <div id="분석-using-maftools" class="section level2">
 <h2>분석 using maftools</h2>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">library</span>(maftools)</span></code></pre></div>
@@ -1670,7 +1680,7 @@ Data Type: Masked Somatic Mutation (WES 데이터를 포함)</p>
 ##   FLG
 ## -Processing clinical data
 ## --Missing clinical data
-## -Finished in 7.837s elapsed (7.513s cpu)</code></pre>
+## -Finished in 7.740s elapsed (7.384s cpu)</code></pre>
 </div>
 <div id="기본적인-maf-분석" class="section level3">
 <h3>기본적인 MAF 분석</h3>
@@ -2522,6 +2532,49 @@ vignette</a></li>
 시각화합니다.</li>
 </ul></li>
 </ol>
+<br>
+<hr>
+<p><br></p>
+</div>
+<div id="key-differences-between-tcga-luad-and-tcga-lusc" class="section level2">
+<h2>Key Differences between TCGA-LUAD and TCGA-LUSC</h2>
+<table>
+<colgroup>
+<col width="20%" />
+<col width="41%" />
+<col width="38%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Characteristic</th>
+<th>TCGA-LUAD (Lung Adenocarcinoma)</th>
+<th>TCGA-LUSC (Lung Squamous Cell Carcinoma)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Location</strong></td>
+<td>Peripheral lung, alveoli, and small airways</td>
+<td>Central lung, large airways, and bronchi</td>
+</tr>
+<tr class="even">
+<td><strong>Cell Type</strong></td>
+<td>Adenocarcinoma cells, mucus-secreting</td>
+<td>Squamous cells, keratinization, and intercellular bridges</td>
+</tr>
+<tr class="odd">
+<td><strong>Cause</strong></td>
+<td>Can occur in both smokers and non-smokers; more common in
+non-smokers</td>
+<td>Strongly associated with smoking</td>
+</tr>
+<tr class="even">
+<td><strong>Common Genetic Mutations</strong></td>
+<td>EGFR, ALK, KRAS</td>
+<td>TP53, CDKN2A, FGFR1</td>
+</tr>
+</tbody>
+</table>
 </div>
 
    
