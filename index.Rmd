@@ -15,7 +15,7 @@ knitr::opts_chunk$set(echo = TRUE)
 <br>
 
 
-# DFCI  
+## DFCI  
 
 *   Belfer laboratory  
 *   MGH laboratory 
@@ -69,14 +69,14 @@ knitr::opts_chunk$set(echo = TRUE)
 
 <br><hr><br>
 
-# Link repository   
+## Link repository   
 
 [Linux software](reference/references.html)
 
 
 <br><hr><br>
 
-# Color Palette  
+## Color Palette  
 
 
 * [**ggsci**](https://nanx.me/ggsci/)
@@ -88,6 +88,13 @@ knitr::opts_chunk$set(echo = TRUE)
 
 
 * [**dittoSeq**](https://bioconductor.org/packages/release/bioc/vignettes/dittoSeq/inst/doc/dittoSeq.html)
+
+
+<br><hr><br>
+
+## TCGA practice 
+
+* [**TCGA maftools**](samples/TCGA_analysis.html)
 
 
 <br><hr><br>
