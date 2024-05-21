@@ -42,4 +42,8 @@ knitr::opts_chunk$set(echo = TRUE, eval = F)
 
 ### Analysis  
 
-  * [**Population Analysis**](scRNA/Daiichi2024_30342.24.05.12.analysis_population.html)
+  * [**Population Analysis**](scRNA/Daiichi2024_30342.24.05.12.analysis_population.html)  
+  * [**Geneset scoring (UCell/Addmodulescore)**](scRNA/scRNA_scoring.html)   
+  
+  
+  
