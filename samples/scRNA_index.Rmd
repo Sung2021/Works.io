@@ -21,21 +21,28 @@ knitr::opts_chunk$set(echo = TRUE, eval = F)
 
 ### Initial Processing  
 
-* [**Raw data processing**](https://sung2021.github.io/works.io/samples/processing/scRNA_preprocessing.html)<br>
-* [**Raw data filitering by UMI & mitochondrial content**](https://sung2021.github.io/works.io/samples/processing/scRNA_QC.html)
-<br>  
+* [**Raw data processing **](https://sung2021.github.io/works.io/samples/processing/scRNA_preprocessing.html)<br>
+    * cellranger  
+    * doublet removal   
+<br>
 
-### UMAP/Clustering  
+* [**Raw data filitering by UMI & mitochondrial content**](https://sung2021.github.io/works.io/samples/processing/scRNA_QC.html)  
+<img src="img/scRNA_umi_filter.png"><br>
+<br><br>  
 
-  * [**UMAP/Clustering Example**](scRNA/scRNA_UMAP.html)  
+### UMAP/Clustering/markers  
+
+  * [**UMAP/Clustering/markers**](scRNA/scRNA_UMAP.html)  
+<img src="img/scRNA_UMAP.png"><br>
+<br><br>
   * [**GSEA by cluster marker genes**](scRNA/Daiichi2024_30342.24.05.11.clusterGSEA.html)<br>
 <img src="img/scRNA_GSEA.png"><br>
-<br>  
+<br><br> 
 
 ### Marker gene Analyais   
 
   * [**Marker genes**](scRNA/scRNA_UMAP.html)  
-<br>
+<br><br><br>  
 
 ### Functional analysis  
 
@@ -46,8 +53,9 @@ knitr::opts_chunk$set(echo = TRUE, eval = F)
   
 <img src="img/scRNA_scoring1.png"><br>  
   
+  * [**Differentially Exprssed Genes Analysis between selected groups**](scRNA/scRNA_scoring.html)<br>
 
-  * [**GSEA**](scRNA/scRNA_scoring.html)   
+ 
   * [**GSVA**](scRNA/scRNA_scoring.html)   
   
   
