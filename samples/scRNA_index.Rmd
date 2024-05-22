@@ -35,14 +35,23 @@ knitr::opts_chunk$set(echo = TRUE, eval = F)
   * [**UMAP/Clustering/markers**](scRNA/scRNA_UMAP.html)  
 <img src="img/scRNA_UMAP.png"><br>
 <br><br>
-  * [**GSEA by cluster marker genes**](scRNA/Daiichi2024_30342.24.05.11.clusterGSEA.html)<br>
+  * [**Simple Gene Ontology analysis by cluster marker genes**](scRNA/Daiichi2024_30342.24.05.11.clusterGSEA.html)<br>
 <img src="img/scRNA_GSEA.png"><br>
 <br><br> 
 
 ### Marker gene Analyais   
 
-  * [**Marker genes**](scRNA/scRNA_UMAP.html)  
+  * [**Marker genes summary report**](scRNA/scRNA_UMAP.html)  
 <br><br><br>  
+
+### Cell Type annotation    
+
+  * [**Immune Cell Type Annotation by scType**](scRNA/scRNA_scType.html)<br>  
+<img src="img/scRNA_scType.png"><br>  
+  
+  * [**Manual Annotation by marker genes**](scRNA/Daiichi2024_30342.24.05.12.suggestedAnnotation.html)<br>
+<img src="img/scRNA_manual_annotation.png"><br>
+<br><br> 
 
 ### Functional analysis  
 
