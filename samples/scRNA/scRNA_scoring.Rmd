@@ -1,0 +1,184 @@
+---
+title: "scRNA-seq"
+subtitle: ""
+author: "Sung Rye Park"
+date: "`r format(Sys.Date())`"
+output:  
+  rmdformats::robobook: 
+    code_folding: show 
+    number_sections: FALSE
+    toc_depth: 6
+    toc_float: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=T, fig.align = "left", 
+                      message=F, warning=F,
+                      results = "markup",
+                      error = TRUE,
+                      highlight = TRUE,
+                      prompt = FALSE,
+                      tidy = FALSE)
+```
+
+```{r}
+## load required packages
+library(Seurat)
+# library(cowplot)
+library(dplyr)
+library(ggplot2)
+library(DT)
+# library(paletteer)
+# library(viridis)
+```
+
+<br>
+
+### Gene signature scoring methods  
+
+* UCell [link](https://carmonalab.github.io/UCell_demo/UCell_matrix_vignette.html)   
+* Addmodulescore  
+
+
+**Comparison**  
+
+| Item                         | UCell                                     | Seurat AddModuleScore                            |
+|------------------------------|-------------------------------------------|--------------------------------------------------|
+| Purpose                      | Quantify the expression level of a specific gene set  | Evaluate the expression pattern of a specific gene set  |
+| Methodology                  | Use U-Score at single-cell level            | Compare the average expression value to neighboring cells |
+| Usage                        | Cell type identification, state assessment, etc. | Cell clustering, characteristic definition, etc. |
+| Calculation Method           | Rank-based score calculation               | Average expression calculation of the gene set     |
+| Processing Speed             | Fast                                       | Comparatively slow                                |
+| Need for Data Normalization  | Usually not required                       | Required                                          |
+| User Convenience             | Simple and easy to use                     | Can be somewhat complex                           |
+| Additional Features          | Scores specific gene sets                  | Can score multiple gene sets                      |
+| Package                      | `UCell` R package                          | `Seurat` R package                                |
+
+<br>
+
+### Gene signature DB {.tabset} 
+
+**DB source: msigdb**  
+
+
+#### HALLMARK  
+
+```{r}
+db = msigdbr::msigdbr(species = "Homo sapiens", category = "H")
+```
+
+#### KEGG    
+
+```{r}
+db = msigdbr::msigdbr(species = "Homo sapiens", subcategory = "CP:KEGG")
+```
+
+#### GO BP    
+
+```{r}
+db = msigdbr::msigdbr(species = "Homo sapiens", subcategory = "GO:BP")
+```
+
+#### GO CC    
+
+```{r}
+db = msigdbr::msigdbr(species = "Homo sapiens", subcategory = "GO:CC")
+```
+
+#### GO MF    
+
+```{r}
+db = msigdbr::msigdbr(species = "Homo sapiens", subcategory = "GO:MF")
+```
+
+
+
+
+
+<!-- ```{r} -->
+<!-- msigdb %>% filter(gs_cat=="C5" & gs_subcat == "GO:BP") %>% head() # GO:BP  -->
+<!-- msigdb %>% filter(gs_cat=="C5" & gs_subcat == "GO:CC") %>% head() # GO:BP  -->
+<!-- msigdb %>% filter(gs_cat=="C5" & gs_subcat == "GO:MF") %>% head() # GO:BP  -->
+<!-- msigdb %>% filter(gs_cat=="C5" & gs_subcat == "HPO") %>% head() # HPO -->
+
+<!-- ``` -->
+
+
+### UCell Application    
+
+```{r, echo=FALSE}
+# Data import
+dir= "~/Desktop/DF/DFCI_Paweletz/2024_Daiichi_DXD/"
+obj.srt = readRDS(paste0(dir,"rds/P30348_DA.24.05.22.rds"))
+```
+
+
+#### Select gene set  
+
+```{r, eval=TRUE}
+db = msigdbr::msigdbr(species = "Homo sapiens", category = "H")
+db = db %>% dplyr::select(gs_name,gene_symbol)
+
+db1 = db %>% filter(gs_name == unique(db$gs_name)[7]) %>% dplyr::select(gene_symbol) %>% pull()
+db2 = db %>% filter(gs_name == unique(db$gs_name)[23]) %>% dplyr::select(gene_symbol) %>% pull()
+db3 = db %>% filter(gs_name == unique(db$gs_name)[29]) %>% dplyr::select(gene_symbol) %>% pull()
+
+gs_names = unique(db$gs_name)
+signatures <- list(db1,db2,db3)
+signatures <- setNames(signatures, nm = c(gs_names[7],gs_names[23], gs_names[29]))
+combined_vector <- unlist(signatures) %>% as.vector()
+```
+
+#### Run UCell  
+
+Using expression data  
+
+
+```{r}
+library(UCell)
+```
+
+```{r}
+combined_vector = combined_vector[combined_vector %in% rownames(obj.srt)]
+exp.mtx =as.data.frame(obj.srt@assays$RNA@data[combined_vector,])
+u.scores <- ScoreSignatures_UCell(exp.mtx, features = signatures)
+```
+
+#### UCell score in heatmap  
+
+```{r, fig.width=5, fig.height=8}
+u.scores %>% pheatmap::pheatmap(cluster_cols = F, show_rownames = F)
+```
+
+
+#### UCell score in violin plot   
+
+```{r, fig.width=8, fig.height=5}
+library(reshape2)
+library(ggplot2)
+melted <- reshape2::melt(u.scores)
+colnames(melted) <- c("Cell","Signature","UCell_score")
+p <- ggplot(melted, aes(x=Signature, y=UCell_score)) + 
+    geom_violin(aes(fill=Signature), scale = "width", size=0.3) +
+    geom_boxplot(width=0.1, outlier.size=0, size=0.3) +
+    theme_bw() + theme(axis.text.x=element_blank())
+p
+```
+
+
+
+
+#### Seurat built-in function  
+
+```{r}
+obj.srt <- AddModuleScore_UCell(obj.srt, features = signatures, name = NULL,
+    ncores = 4)
+```
+
+#### UCell score featureplot  
+
+```{r, fig.width=11, fig.height=8}
+FeaturePlot(obj.srt, features = colnames(obj.srt@meta.data)[grepl("HALL", colnames(obj.srt@meta.data))], ncol = 2, pt.size = 0.2)
+```
+
+

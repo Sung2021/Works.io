@@ -24,12 +24,6 @@ knitr::opts_chunk$set(echo = TRUE, eval = F)
 * [**Raw data processing and initial filitering**](https://sung2021.github.io/works.io/samples/processing/scRNA_preprocessing.html)
 <br>  
 
-### Cell type annotation (Immune cell type)  
-
-  * [**Annotation by scType Example**](scRNA/scRNA_scType.html)
-  * [**Manual Annotation Example**](scRNA/Daiichi2024_30342.24.05.12.suggestedAnnotation.html)   
-<br>  
-  
 ### UMAP/Clustering  
 
   * [**UMAP/Clustering Example**](scRNA/scRNA_UMAP.html)  
@@ -39,14 +33,14 @@ knitr::opts_chunk$set(echo = TRUE, eval = F)
 ### Marker gene Analyais   
 
   * [**Marker genes**](scRNA/scRNA_UMAP.html)  
-
-
+<br>
 
 ### Functional analysis  
 
   * [**Population shift**](scRNA/Daiichi2024_30342.24.05.12.analysis_population.html)  
   * [**Gene signature scoring**](scRNA/scRNA_scoring.html)   
   * [**GSEA**](scRNA/scRNA_scoring.html)   
+  * [**GSVA**](scRNA/scRNA_scoring.html)   
   
   
   
