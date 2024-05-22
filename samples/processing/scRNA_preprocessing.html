@@ -6,7 +6,7 @@
     <meta name="generator" content="pandoc" />
 
     
-        <meta name="date" content="2024-05-16" />
+        <meta name="date" content="2024-05-22" />
     
     <title>scRNA-seq</title>
 
@@ -1601,13 +1601,11 @@ margin-left: 0 !important;
           output</a></li>
           <li><a href="#doublet-removal-by-scrublet" id="toc-doublet-removal-by-scrublet">Doublet removal (by
           scrublet)</a></li>
-          <li><a href="#filtering-by-umi-mitocondrial-content-ratio" id="toc-filtering-by-umi-mitocondrial-content-ratio">Filtering
-          by UMI &amp; mitocondrial content ratio</a></li>
           </ul>
         </nav>
         <ul class="authors">
           <li class="divider"></li>
-                               <li><span><i class="glyphicon glyphicon-calendar"></i> 2024-05-16</span></li>
+                               <li><span><i class="glyphicon glyphicon-calendar"></i> 2024-05-22</span></li>
                   </ul>     
       </div>
       <div class="book-body fixed">
@@ -1735,13 +1733,6 @@ Input file is the count matrix from seurat object.</p>
 <span id="cb6-15"><a href="#cb6-15" tabindex="-1"></a><span class="co"># You might want to check the number of doublets in the data</span></span>
 <span id="cb6-16"><a href="#cb6-16" tabindex="-1"></a>obj.srt<span class="sc">@</span>meta.data <span class="sc">%&gt;%</span> <span class="fu">select</span>(predicted_doublet) <span class="sc">%&gt;%</span> <span class="fu">table</span>()</span></code></pre></div>
 <p><br></p>
-</div>
-<div id="filtering-by-umi-mitocondrial-content-ratio" class="section level1">
-<h1>Filtering by UMI &amp; mitocondrial content ratio</h1>
-<ul>
-<li><a href="https://sung2021.github.io/works.io/samples/processing/scRNA_preprocessing.html"><strong>QC
-Example</strong></a></li>
-</ul>
 </div>
 
    

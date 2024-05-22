@@ -36,7 +36,8 @@ library(DT)
 
 ### Gene signature scoring methods  
 
-* UCell [link](https://carmonalab.github.io/UCell_demo/UCell_matrix_vignette.html)   
+* UCell [link1](https://carmonalab.github.io/UCell_demo/UCell_matrix_vignette.html)   
+* UCell [link2](https://bioconductor.org/packages/devel/bioc/vignettes/UCell/inst/doc/UCell_vignette_basic.html)  
 * Addmodulescore  
 
 
