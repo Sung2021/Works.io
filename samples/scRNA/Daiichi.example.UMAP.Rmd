@@ -1,0 +1,310 @@
+---
+title: "scRNA-seq"
+subtitle: "UMAP/Clustering"
+author: "Sung Rye Park"
+date: "`r format(Sys.Date())`"
+output:  
+  rmdformats::robobook: 
+    code_folding: show 
+    number_sections: FALSE
+    toc_depth: 6
+    toc_float: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=F, fig.align = "left", 
+                      message=F, warning=F,
+                      results = "markup",
+                      error = TRUE,
+                      highlight = TRUE,
+                      prompt = FALSE,
+                      tidy = FALSE)
+```
+
+```{r}
+## load required packages
+library(Seurat)
+library(cowplot)
+library(dplyr)
+library(ggplot2)
+library(DT)
+library(paletteer)
+library(viridis)
+```
+
+<br>
+[code](Daiichi.example.UMAP.code.html) 
+
+
+```{r, echo=FALSE}
+dir= "~/Desktop/tmp/"
+obj.srt = readRDS(paste0(dir,"P30348.sample.rds"))
+```
+
+```{r, eval=FALSE, echo=FALSE}
+# This process was done previously.
+## perform default analysis
+perform_default_analysis <- function(obj.srt, n_features = 2000, n_pcs = 20, 
+                                     dims_for_neighbors = 1:20, 
+                                     resolutions = c(0.2,0.4), 
+                                     umap_dims = 1:20) {
+  # Step 1: Find variable features
+  obj.srt <- FindVariableFeatures(obj.srt, 
+                                  selection.method = 'vst', 
+                                  nfeatures = n_features)
+  
+  # Step 2: Scale and normalize data
+  all_genes <- rownames(obj.srt)
+  obj.srt <- NormalizeData(obj.srt)
+  obj.srt <- ScaleData(obj.srt, features = all_genes)
+  
+  # Step 3: Run PCA
+  obj.srt <- RunPCA(obj.srt, 
+                    features = VariableFeatures(object = obj.srt), npcs = n_pcs)
+  
+  # Step 4: Find neighbors
+  obj.srt <- FindNeighbors(obj.srt, dims = dims_for_neighbors)
+  
+  # Step 5: Find clusters
+  obj.srt <- FindClusters(obj.srt, resolution = resolutions)
+  
+  # Step 6: Run UMAP
+  obj.srt <- RunUMAP(obj.srt, dims = umap_dims)
+  
+  # Return the Seurat object with analysis results
+  return(obj.srt)
+}
+
+# apply
+obj.srt <- perform_default_analysis(obj.srt, umap_dims = 1:10)
+```
+
+
+## UMAP {.tabset}
+
+```{r}
+df = obj.srt@meta.data
+
+df = df %>% mutate(sample = case_when(orig.ident == "P30348_D" ~ "TRT1",
+                                      orig.ident == "P30348_A" ~ "TRT2",))
+obj.srt@meta.data = df
+```
+
+
+### UMAP by treatment
+
+<!-- ```{r} -->
+<!-- orig.ident_cols = scale_color_paletteer_d("ggsci::nrc_npg")  -->
+<!-- orig.ident_fils = scale_fill_paletteer_d("ggsci::nrc_npg")  -->
+<!-- ``` -->
+
+```{r, fig.width=7, fig.height=6, out.width='80%'}
+DimPlot(obj.srt, group.by = 'sample', alpha = 0.8) + 
+  scale_color_paletteer_d("ggsci::nrc_npg") + theme_bw()
+```
+
+### Split by sample  
+```{r, fig.width=12, fig.height=6}
+DimPlot(obj.srt, group.by = 'sample', 
+        split.by = 'sample', ncol = 2, alpha = 0.5) +
+  scale_color_paletteer_d("ggsci::nrc_npg") + theme_bw()
+```
+
+### Distribution of number of cells
+
+```{r, fig.width=4, fig.height=4}
+obj.srt@meta.data %>% ggplot(aes(sample, fill=sample)) + 
+  geom_bar(alpha=0.7, color="grey5", size=0.1) +
+  geom_text(stat="count", aes(label= ..count..), vjust=-0.5, size=3) +
+  xlab("") + 
+  theme_classic() +
+  theme(legend.title = element_blank(),
+        axis.text.x = element_text(angle = 45, vjust=0.5)) 
+
+```
+
+
+## Clustering {.tabset} 
+
+* resolution 0.2  
+* resolution 0.4  
+<br>
+
+```{r}
+resolution_values <- c(0.2, 0.4)
+```
+
+### UMAP (res 0.2)
+
+```{r}
+# Resolution and color palette
+i=1
+res= paste0("RNA_snn_res.", resolution_values[i])
+palette <- wesanderson::wes_palette("FantasticFox1", length(levels(obj.srt@meta.data[,res])), type = "continuous")
+```
+
+
+```{r,fig.width=7, fig.height=6, out.width='80%'}
+DimPlot(obj.srt, group.by = res, cols = palette, alpha = 0.8) + 
+  theme(plot.title = element_blank()) + xlab("UMAP1") + ylab("UMAP2")
+```
+
+### UMAP (res 0.2) (label)
+```{r,fig.width=7, fig.height=6, out.width='80%'}
+DimPlot(obj.srt, group.by = res, alpha = 0.8,
+        label = T, label.box = T, label.size = 3, cols = palette) + theme(plot.title = element_blank())
+```
+
+
+### Cell numbers 
+```{r}
+obj.srt@meta.data %>% ggplot(aes(!!sym(res), fill=!!sym(res))) + 
+  geom_bar(alpha=0.7, color="grey5", size=0.1) +
+  geom_text(stat="count", aes(label= ..count..), vjust=-0.5, size=3) +
+  scale_fill_manual(values=palette) + 
+  xlab("") + 
+  theme_classic() +
+  theme(legend.title = element_blank(),
+        axis.text.x = element_text(angle = 0, vjust=0.5)) +
+  ggtitle("Number of genes by Cluster")
+```
+
+
+### Proportion of clusters by sample
+```{r, fig.width=8, fig.height=3}
+obj.srt@meta.data %>% ggplot(aes(sample, fill=!!sym(res))) +
+  geom_bar(position = "fill", color="grey9",size = 0.2) +coord_flip() +
+  theme_bw() + 
+  theme(legend.title = element_blank()) +
+  scale_fill_manual(values=palette) +xlab("") +ylab("Fraction") 
+```
+
+### Proportion of sample by cluster     
+```{r, fig.width=8, fig.height=4}
+obj.srt@meta.data %>% ggplot(aes(!!sym(res), fill=sample)) + 
+  geom_bar(position = "fill", color="grey9",size = 0.2, alpha=0.8) + scale_fill_paletteer_d("ggsci::nrc_npg") + theme_classic()+ 
+  theme(legend.title = element_blank()) +
+  ylab("Fraction")
+
+```
+
+
+
+
+
+### UMAP (res 0.4)
+
+```{r}
+# Resolution and color palette
+i=2
+res= paste0("RNA_snn_res.", resolution_values[i])
+palette <- wesanderson::wes_palette("FantasticFox1", length(levels(obj.srt@meta.data[,res])), type = "continuous")
+```
+
+
+```{r,fig.width=7, fig.height=6, out.width='80%'}
+DimPlot(obj.srt, group.by = res, cols = palette, alpha = 0.8) + 
+  theme(plot.title = element_blank()) + xlab("UMAP1") + ylab("UMAP2")
+```
+
+### UMAP (res 0.4) (label)
+```{r,fig.width=7, fig.height=6, out.width='80%'}
+DimPlot(obj.srt, group.by = res, alpha = 0.8,
+        label = T, label.box = T, label.size = 3, cols = palette) + theme(plot.title = element_blank())
+```
+
+### Cell numbers 
+```{r}
+obj.srt@meta.data %>% ggplot(aes(!!sym(res), fill=!!sym(res))) + 
+  geom_bar(alpha=0.7, color="grey5", size=0.1) +
+  geom_text(stat="count", aes(label= ..count..), vjust=-0.5, size=3) +
+  scale_fill_manual(values=palette) + 
+  xlab("") + 
+  theme_classic() +
+  theme(legend.title = element_blank(),
+        axis.text.x = element_text(angle = 0, vjust=0.5)) +
+  ggtitle("Number of genes by Cluster")
+```
+
+### Proportion of clusters by sample
+```{r, fig.width=8, fig.height=3}
+obj.srt@meta.data %>% ggplot(aes(sample, fill=!!sym(res))) +
+  geom_bar(position = "fill", color="grey9",size = 0.2) +coord_flip() +
+  theme_bw() + 
+  theme(legend.title = element_blank()) +
+  scale_fill_manual(values=palette) +xlab("") +ylab("Fraction") 
+```
+
+### Proportion of sample by cluster     
+```{r, fig.width=8, fig.height=4}
+obj.srt@meta.data %>% ggplot(aes(!!sym(res), fill=sample)) + 
+  geom_bar(position = "fill", color="grey9",size = 0.2, alpha=0.8) + scale_fill_paletteer_d("ggsci::nrc_npg") + theme_classic()+ 
+  theme(legend.title = element_blank()) +
+  ylab("Fraction")
+
+```
+
+### Sankey plot 
+
+```{r}
+## sankey plot 
+library(ggsankey)
+library(ggplot2)
+library(dplyr)
+
+cols = c('sample','RNA_snn_res.0.2','RNA_snn_res.0.4')
+data =obj.srt@meta.data[, cols]
+
+# Function to create a Sankey plot
+create_sankey_plot <- function(data, column_names, title, show_labels = FALSE){
+  df <- data %>%
+    make_long(!!column_names[1], !!column_names[2], !!column_names[3])
+  
+  dagg <- df %>%
+    group_by(node) %>%
+    tally()
+  
+  df2 <- merge(df, dagg, by.x = 'node', by.y = 'node', all.x = TRUE)
+  
+  pl <- ggplot(df2, aes(x = x,
+                        next_x = next_x,
+                        node = node,
+                        next_node = next_node,
+                        fill = factor(node),
+                        label = paste0(node," n=", n))
+  )
+  
+  pl <- pl + geom_sankey(flow.alpha = 0.5, color = "gray40", show.legend = show_labels)
+  if (show_labels) {
+    pl <- pl + geom_sankey_label(size = 3, color = "white", fill = "gray40", hjust = 1)  # Change hjust value to 1 (right-aligned)
+  }
+  
+  pl <- pl + theme_bw()
+  pl <- pl + theme(legend.position = "none")
+  pl <- pl + theme(axis.title = element_blank(),
+                   axis.text.y = element_blank(),
+                   axis.ticks = element_blank(),
+                   panel.grid = element_blank())
+  pl <- pl + scale_fill_viridis_d(option = "plasma")
+  pl <- pl + labs(title = "")
+  
+  pl <- pl + labs(fill = 'Nodes')
+  
+  return(pl)
+}
+
+# Assuming obj.srt@meta.data is your data and you want to use specific columns for the Sankey plot
+column_names <- cols
+
+# Create the Sankey plot using the specified columns
+sankey_plot <- create_sankey_plot(data = obj.srt@meta.data, column_names, 
+                                  title = "", show_labels = TRUE)
+```
+
+
+```{r,fig.height=6, fig.width=10}
+# Display the plot
+print(sankey_plot)
+```
+
+

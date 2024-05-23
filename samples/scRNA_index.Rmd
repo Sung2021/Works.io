@@ -30,9 +30,9 @@ knitr::opts_chunk$set(echo = TRUE, eval = F)
 <img src="img/scRNA_umi_filter.png"><br>
 <br><br>  
 
-### UMAP/Clustering/markers  
+### UMAP/Clustering  
 
-  * [**UMAP/Clustering/markers**](scRNA/scRNA_UMAP.html)  
+  * [**UMAP/Clustering/markers**](scRNA/Daiichi.example.UMAP.html)  
 <img src="img/scRNA_UMAP.png"><br>
 <br><br>
   * [**Simple Gene Ontology analysis by cluster marker genes**](scRNA/Daiichi2024_30342.24.05.11.clusterGSEA.html)<br>
