@@ -1,0 +1,85 @@
+---
+title: "RNA-seq"
+subtitle: "Workflow"
+date: "`r format(Sys.Date())`"
+output:  
+  rmdformats::robobook: 
+    code_folding: show 
+    number_sections: FALSE
+    toc_depth: 6
+    toc_float: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval = F)
+```
+<br>
+
+[Link to the previous version](https://sung2021.github.io/samplePages/RNAseq.html)  
+<br><br>
+
+### Visualization  
+
+  * [**Volcanoplot1**](analysis/Volcanoplot.24.05.24.html)
+<!-- <img src="img/scRNA_UMAP.png"><br> -->
+  * [**GSEA & GSEA NES plot**](analysis/GSEAPlot.24.05.24.html)
+<!-- <img src="img/scRNA_UMAP.png"><br> -->
+<br><br>
+
+
+<!-- ### Initial Processing   -->
+
+<!-- * [**Raw data processing **](https://sung2021.github.io/works.io/samples/processing/scRNA_preprocessing.html)<br> -->
+<!--     * cellranger   -->
+<!--     * doublet removal    -->
+<!-- <br> -->
+
+<!-- * [**Raw data filitering by UMI & mitochondrial content**](https://sung2021.github.io/works.io/samples/processing/scRNA_QC.html)   -->
+<!-- <img src="img/scRNA_umi_filter.png"><br> -->
+<!-- <br><br>   -->
+
+<!-- ### UMAP/Clustering   -->
+
+<!--   * [**UMAP/Clustering**](scRNA/Daiichi.example.UMAP.html)   -->
+<!-- <img src="img/scRNA_UMAP.png"><br> -->
+<!-- <br><br> -->
+<!--   * [**Simple Gene Ontology analysis by cluster marker genes**](scRNA/Daiichi2024_30342.24.05.11.clusterGSEA.html)<br> -->
+<!-- <img src="img/scRNA_GSEA.png"><br> -->
+<!-- <br><br>  -->
+
+<!-- ### Marker gene Analyais    -->
+
+<!--   * [**Marker genes summary report**](scRNA/scRNA_UMAP.html)   -->
+<!-- <br><br><br>   -->
+
+<!-- ### Differentially Expressed Genes Analyais    -->
+
+<!--   * [**DEG report**](scRNA/Daiichi2024_30342.DEG.html)<br> -->
+<!-- <img src="img/scRNA_DEG.png"><br> -->
+<!-- <br><br> -->
+
+
+<!-- ### Cell Type annotation     -->
+
+<!--   * [**Immune Cell Type Annotation by scType**](scRNA/scRNA_scType.html)<br>   -->
+<!-- <img src="img/scRNA_scType.png"><br>   -->
+
+<!--   * [**Manual Annotation by marker genes**](scRNA/Daiichi2024_30342.24.05.12.suggestedAnnotation.html)<br> -->
+<!-- <img src="img/scRNA_manual_annotation.png"><br> -->
+<!-- <br><br>  -->
+
+<!-- ### Functional analysis   -->
+
+<!--   * [**Population shift**](scRNA/Daiichi2024_30342.24.05.12.analysis_population.html)   -->
+<!-- <img src="img/scRNA_population.png"><br> -->
+
+<!--   * [**Gene signature scoring**](scRNA/scRNA_scoring.html)<br> -->
+
+<!-- <img src="img/scRNA_scoring1.png"><br>   -->
+
+<!--   * [**Differentially Exprssed Genes Analysis between selected groups**](scRNA/scRNA_scoring.html)<br> -->
+
+
+<!--   * [**GSVA**](scRNA/scRNA_scoring.html)    -->
+
+

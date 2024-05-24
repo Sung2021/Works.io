@@ -5,11 +5,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="generator" content="pandoc" />
 
-        <meta name="author" content="Sung Rye Park" />
     
-        <meta name="date" content="2024-05-23" />
+        <meta name="date" content="2024-05-24" />
     
-    <title>msigDB</title>
+    <title>RNA-seq</title>
 
         <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -1431,75 +1430,6 @@ src: url(data:font/ttf;base64,AAEAAAARAQAABAAQR0RFRgs+Cz8AAjwQAAAAQEdQT1MXWeoAAA
 </script>
     
     
-        <style type="text/css">code{white-space: pre;}</style>
-    <style type="text/css">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-{ counter-reset: source-line 0; }
-pre.numberSource code > span
-{ position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-{ content: counter(source-line);
-position: relative; left: -1em; text-align: right; vertical-align: baseline;
-border: none; display: inline-block;
--webkit-touch-callout: none; -webkit-user-select: none;
--khtml-user-select: none; -moz-user-select: none;
--ms-user-select: none; user-select: none;
-padding: 0 4px; width: 4em;
-background-color: #ffffff;
-color: #a0a0a0;
-}
-pre.numberSource { margin-left: 3em; border-left: 1px solid #a0a0a0; padding-left: 4px; }
-div.sourceCode
-{ color: #1f1c1b; background-color: #ffffff; }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span { color: #1f1c1b; } 
-code span.al { color: #bf0303; background-color: #f7e6e6; font-weight: bold; } 
-code span.an { color: #ca60ca; } 
-code span.at { color: #0057ae; } 
-code span.bn { color: #b08000; } 
-code span.bu { color: #644a9b; font-weight: bold; } 
-code span.cf { color: #1f1c1b; font-weight: bold; } 
-code span.ch { color: #924c9d; } 
-code span.cn { color: #aa5500; } 
-code span.co { color: #898887; } 
-code span.cv { color: #0095ff; } 
-code span.do { color: #607880; } 
-code span.dt { color: #0057ae; } 
-code span.dv { color: #b08000; } 
-code span.er { color: #bf0303; text-decoration: underline; } 
-code span.ex { color: #0095ff; font-weight: bold; } 
-code span.fl { color: #b08000; } 
-code span.fu { color: #644a9b; } 
-code span.im { color: #ff5500; } 
-code span.in { color: #b08000; } 
-code span.kw { color: #1f1c1b; font-weight: bold; } 
-code span.op { color: #1f1c1b; } 
-code span.ot { color: #006e28; } 
-code span.pp { color: #006e28; } 
-code span.re { color: #0057ae; background-color: #e0e9f8; } 
-code span.sc { color: #3daee9; } 
-code span.ss { color: #ff5500; } 
-code span.st { color: #bf0303; } 
-code span.va { color: #0057ae; } 
-code span.vs { color: #bf0303; } 
-code span.wa { color: #bf0303; } 
-</style>
     
     
     <!-- tabsets -->
@@ -1586,34 +1516,17 @@ margin-left: 0 !important;
    <div class="book with-summary">
       <div class="book-summary">
         <ul>
-          <li class="title">msigDB</li>
+          <li class="title">RNA-seq</li>
           <li class="divider"></li>
         </ul>
         <nav role="navigation" id="toc">
           <ul>
-          <li><a href="#geneset-db-link" id="toc-geneset-db-link">Geneset DB link</a></li>
-          <li><a href="#extract-human-db" id="toc-extract-human-db">Extract Human DB</a>
-          <ul>
-          <li><a href="#c5" id="toc-c5">C5</a></li>
-          <li><a href="#hallmark" id="toc-hallmark">HALLMARK</a></li>
-          <li><a href="#c2" id="toc-c2">C2</a></li>
-          </ul></li>
-          <li><a href="#hallmark-pathways" id="toc-hallmark-pathways">HALLMARK pathways</a></li>
-          <li><a href="#kegg-pathways" id="toc-kegg-pathways">KEGG
-          pathways</a></li>
-          <li><a href="#gobp-pathways" id="toc-gobp-pathways">GOBP
-          pathways</a></li>
-          <li><a href="#gocc-pathways" id="toc-gocc-pathways">GOCC
-          pathways</a></li>
-          <li><a href="#gomf-pathways" id="toc-gomf-pathways">GOMF
-          pathways</a></li>
+          <li><a href="#visualization" id="toc-visualization">Visualization</a></li>
           </ul>
         </nav>
         <ul class="authors">
           <li class="divider"></li>
-                                <li><span><i class="glyphicon glyphicon-user"></i> Sung
-Rye Park</span></li>
-                                         <li><span><i class="glyphicon glyphicon-calendar"></i> 2024-05-23</span></li>
+                               <li><span><i class="glyphicon glyphicon-calendar"></i> 2024-05-24</span></li>
                   </ul>     
       </div>
       <div class="book-body fixed">
@@ -1633,8 +1546,9 @@ Rye Park</span></li>
    </div>
    
         
-      <h1 class="title">msigDB</h1>
-      
+      <h1 class="title">RNA-seq</h1>
+         <h1 class="subtitle">Workflow</h1>
+   
         
 
    
@@ -1642,105 +1556,53 @@ Rye Park</span></li>
    
 <!-- Don't indent these lines or it will mess pre blocks indentation --> 
 <p><br></p>
-<div id="geneset-db-link" class="section level2">
-<h2>Geneset DB link</h2>
+<p><a href="https://sung2021.github.io/samplePages/RNAseq.html">Link to
+the previous version</a><br />
+<br><br></p>
+<div id="visualization" class="section level3">
+<h3>Visualization</h3>
 <ul>
-<li><a href="https://www.gsea-msigdb.org/gsea/msigdb/human/genesets.jsp">misigDB
-human</a><br> <br></li>
+<li><a href="analysis/Volcanoplot.24.05.24.html"><strong>Volcanoplot1</strong></a>
+<!-- <img src="img/scRNA_UMAP.png"><br> --></li>
+<li><a href="analysis/GSEAPlot.24.05.24.html"><strong>GSEA &amp; GSEA
+NES plot</strong></a> <!-- <img src="img/scRNA_UMAP.png"><br> -->
+<br><br></li>
 </ul>
-<p><strong>Commonoy used pathways</strong></p>
-<ul>
-<li><a href="https://www.gsea-msigdb.org/gsea/msigdb/human/genesets.jsp?collection=H">HALLMARK</a><br />
-</li>
-<li><a href="https://www.gsea-msigdb.org/gsea/msigdb/human/genesets.jsp?collection=CP:KEGG_LEGACY">KEGG
-Legacy</a><br />
-</li>
-<li><a href="https://www.gsea-msigdb.org/gsea/msigdb/human/genesets.jsp?collection=GO">GO</a></li>
-</ul>
-</div>
-<div id="extract-human-db" class="section level2">
-<h2>Extract Human DB</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>msigdb <span class="ot">=</span> msigdbr<span class="sc">::</span><span class="fu">msigdbr</span>(<span class="at">species =</span> <span class="st">&quot;Homo sapiens&quot;</span>) </span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>msigdb <span class="sc">%&gt;%</span> <span class="fu">colnames</span>()</span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>msigdb<span class="sc">$</span>gs_cat <span class="sc">%&gt;%</span> <span class="fu">unique</span>()</span></code></pre></div>
-<div id="c5" class="section level3">
-<h3>C5</h3>
-<ul>
-<li><a href="GO:BP" class="uri">GO:BP</a><br />
-</li>
-<li><a href="GO:CC" class="uri">GO:CC</a><br />
-</li>
-<li><a href="GO:MF" class="uri">GO:MF</a><br />
-</li>
-<li><a href="GO:HPO" class="uri">GO:HPO</a></li>
-</ul>
-</div>
-<div id="hallmark" class="section level3">
-<h3>HALLMARK</h3>
-<ul>
-<li>HALLMARK</li>
-</ul>
-</div>
-<div id="c2" class="section level3">
-<h3>C2</h3>
-<ul>
-<li>CP:KEGG</li>
-</ul>
-<p><strong>Examples</strong></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>msigdb <span class="sc">%&gt;%</span> <span class="fu">filter</span>(gs_cat<span class="sc">==</span><span class="st">&quot;C5&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">head</span>() <span class="co"># GO </span></span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>msigdb <span class="sc">%&gt;%</span> <span class="fu">filter</span>(gs_cat<span class="sc">==</span><span class="st">&quot;C5&quot;</span> <span class="sc">&amp;</span> gs_subcat <span class="sc">==</span> <span class="st">&quot;GO:BP&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">head</span>() <span class="co"># GO:BP </span></span>
-<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>msigdb <span class="sc">%&gt;%</span> <span class="fu">filter</span>(gs_cat<span class="sc">==</span><span class="st">&quot;C5&quot;</span> <span class="sc">&amp;</span> gs_subcat <span class="sc">==</span> <span class="st">&quot;GO:CC&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">head</span>() <span class="co"># GO:BP </span></span>
-<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>msigdb <span class="sc">%&gt;%</span> <span class="fu">filter</span>(gs_cat<span class="sc">==</span><span class="st">&quot;C5&quot;</span> <span class="sc">&amp;</span> gs_subcat <span class="sc">==</span> <span class="st">&quot;GO:MF&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">head</span>() <span class="co"># GO:BP </span></span>
-<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>msigdb <span class="sc">%&gt;%</span> <span class="fu">filter</span>(gs_cat<span class="sc">==</span><span class="st">&quot;C5&quot;</span> <span class="sc">&amp;</span> gs_subcat <span class="sc">==</span> <span class="st">&quot;HPO&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">head</span>() <span class="co"># HPO</span></span>
-<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>msigdb <span class="sc">%&gt;%</span> <span class="fu">filter</span>(gs_cat<span class="sc">==</span><span class="st">&quot;H&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">head</span>() <span class="co"># HALLMARK</span></span>
-<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>msigdb <span class="sc">%&gt;%</span> <span class="fu">filter</span>(gs_cat<span class="sc">==</span><span class="st">&quot;C2&quot;</span> <span class="sc">&amp;</span> gs_subcat <span class="sc">==</span> <span class="st">&quot;CP:KEGG&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">head</span>() <span class="co"># KEGG</span></span>
-<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a></span>
-<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a>msigdb[msigdb<span class="sc">$</span>gs_cat <span class="sc">==</span> <span class="st">&quot;C2&quot;</span>,]<span class="sc">$</span>gs_subcat <span class="sc">%&gt;%</span> <span class="fu">unique</span>()</span>
-<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a>msigdb[msigdb<span class="sc">$</span>gs_cat <span class="sc">==</span> <span class="st">&quot;C5&quot;</span>,]<span class="sc">$</span>gs_subcat <span class="sc">%&gt;%</span> <span class="fu">unique</span>()</span></code></pre></div>
-</div>
-</div>
-<div id="hallmark-pathways" class="section level2">
-<h2>HALLMARK pathways</h2>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co"># subcategory can be selected directly </span></span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>db <span class="ot">=</span> msigdbr<span class="sc">::</span><span class="fu">msigdbr</span>(<span class="at">species =</span> <span class="st">&quot;Homo sapiens&quot;</span>, <span class="at">category =</span> <span class="st">&quot;H&quot;</span>) </span></code></pre></div>
-</div>
-<div id="kegg-pathways" class="section level2">
-<h2>KEGG pathways</h2>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="co"># subcategory can be selected directly </span></span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>db <span class="ot">=</span> msigdbr<span class="sc">::</span><span class="fu">msigdbr</span>(<span class="at">species =</span> <span class="st">&quot;Homo sapiens&quot;</span>, <span class="at">subcategory =</span> <span class="st">&quot;CP:KEGG&quot;</span>) </span></code></pre></div>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>db<span class="sc">$</span>gs_name <span class="sc">%&gt;%</span> <span class="fu">table</span>() <span class="sc">%&gt;%</span> <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>  DT<span class="sc">::</span><span class="fu">datatable</span>(<span class="at">colnames =</span> <span class="fu">c</span>(<span class="st">&quot;KEGG&quot;</span>, <span class="st">&quot;Number of genes&quot;</span>), <span class="at">rownames =</span> F)</span></code></pre></div>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>db <span class="sc">%&gt;%</span> <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(gs_subcat,gs_name,gene_symbol) <span class="sc">%&gt;%</span> </span>
-<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>  DT<span class="sc">::</span><span class="fu">datatable</span>(<span class="at">rownames =</span> F)</span></code></pre></div>
-</div>
-<div id="gobp-pathways" class="section level2">
-<h2>GOBP pathways</h2>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="co"># subcategory can be selected directly </span></span>
-<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>db <span class="ot">=</span> msigdbr<span class="sc">::</span><span class="fu">msigdbr</span>(<span class="at">species =</span> <span class="st">&quot;Homo sapiens&quot;</span>, <span class="at">subcategory =</span> <span class="st">&quot;GO:BP&quot;</span>) </span></code></pre></div>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>db<span class="sc">$</span>gs_name <span class="sc">%&gt;%</span> <span class="fu">table</span>() <span class="sc">%&gt;%</span> <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>  DT<span class="sc">::</span><span class="fu">datatable</span>(<span class="at">colnames =</span> <span class="fu">c</span>(<span class="st">&quot;GO:BP&quot;</span>, <span class="st">&quot;Number of genes&quot;</span>), <span class="at">rownames =</span> F)</span></code></pre></div>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>db <span class="sc">%&gt;%</span> <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(gs_subcat,gs_name,gene_symbol) <span class="sc">%&gt;%</span> </span>
-<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>  DT<span class="sc">::</span><span class="fu">datatable</span>(<span class="at">rownames =</span> F)</span></code></pre></div>
-</div>
-<div id="gocc-pathways" class="section level2">
-<h2>GOCC pathways</h2>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="co"># subcategory can be selected directly </span></span>
-<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>db <span class="ot">=</span> msigdbr<span class="sc">::</span><span class="fu">msigdbr</span>(<span class="at">species =</span> <span class="st">&quot;Homo sapiens&quot;</span>, <span class="at">subcategory =</span> <span class="st">&quot;GO:CC&quot;</span>) </span></code></pre></div>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>db<span class="sc">$</span>gs_name <span class="sc">%&gt;%</span> <span class="fu">table</span>() <span class="sc">%&gt;%</span> <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>  DT<span class="sc">::</span><span class="fu">datatable</span>(<span class="at">colnames =</span> <span class="fu">c</span>(<span class="st">&quot;GO:CC&quot;</span>, <span class="st">&quot;Number of genes&quot;</span>), <span class="at">rownames =</span> F)</span></code></pre></div>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>db <span class="sc">%&gt;%</span> <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(gs_subcat,gs_name,gene_symbol) <span class="sc">%&gt;%</span> </span>
-<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>  DT<span class="sc">::</span><span class="fu">datatable</span>(<span class="at">rownames =</span> F)</span></code></pre></div>
-</div>
-<div id="gomf-pathways" class="section level2">
-<h2>GOMF pathways</h2>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="co"># subcategory can be selected directly </span></span>
-<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>db <span class="ot">=</span> msigdbr<span class="sc">::</span><span class="fu">msigdbr</span>(<span class="at">species =</span> <span class="st">&quot;Homo sapiens&quot;</span>, <span class="at">subcategory =</span> <span class="st">&quot;GO:MF&quot;</span>) </span></code></pre></div>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>db<span class="sc">$</span>gs_name <span class="sc">%&gt;%</span> <span class="fu">table</span>() <span class="sc">%&gt;%</span> <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>  DT<span class="sc">::</span><span class="fu">datatable</span>(<span class="at">colnames =</span> <span class="fu">c</span>(<span class="st">&quot;GO:MF&quot;</span>, <span class="st">&quot;Number of genes&quot;</span>), <span class="at">rownames =</span> F)</span></code></pre></div>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>db <span class="sc">%&gt;%</span> <span class="fu">data.frame</span>() <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(gs_subcat,gs_name,gene_symbol) <span class="sc">%&gt;%</span> </span>
-<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a>  DT<span class="sc">::</span><span class="fu">datatable</span>(<span class="at">rownames =</span> F)</span></code></pre></div>
+<!-- ### Initial Processing   -->
+<!-- * [**Raw data processing **](https://sung2021.github.io/works.io/samples/processing/scRNA_preprocessing.html)<br> -->
+<!--     * cellranger   -->
+<!--     * doublet removal    -->
+<!-- <br> -->
+<!-- * [**Raw data filitering by UMI & mitochondrial content**](https://sung2021.github.io/works.io/samples/processing/scRNA_QC.html)   -->
+<!-- <img src="img/scRNA_umi_filter.png"><br> -->
+<!-- <br><br>   -->
+<!-- ### UMAP/Clustering   -->
+<!--   * [**UMAP/Clustering**](scRNA/Daiichi.example.UMAP.html)   -->
+<!-- <img src="img/scRNA_UMAP.png"><br> -->
+<!-- <br><br> -->
+<!--   * [**Simple Gene Ontology analysis by cluster marker genes**](scRNA/Daiichi2024_30342.24.05.11.clusterGSEA.html)<br> -->
+<!-- <img src="img/scRNA_GSEA.png"><br> -->
+<!-- <br><br>  -->
+<!-- ### Marker gene Analyais    -->
+<!--   * [**Marker genes summary report**](scRNA/scRNA_UMAP.html)   -->
+<!-- <br><br><br>   -->
+<!-- ### Differentially Expressed Genes Analyais    -->
+<!--   * [**DEG report**](scRNA/Daiichi2024_30342.DEG.html)<br> -->
+<!-- <img src="img/scRNA_DEG.png"><br> -->
+<!-- <br><br> -->
+<!-- ### Cell Type annotation     -->
+<!--   * [**Immune Cell Type Annotation by scType**](scRNA/scRNA_scType.html)<br>   -->
+<!-- <img src="img/scRNA_scType.png"><br>   -->
+<!--   * [**Manual Annotation by marker genes**](scRNA/Daiichi2024_30342.24.05.12.suggestedAnnotation.html)<br> -->
+<!-- <img src="img/scRNA_manual_annotation.png"><br> -->
+<!-- <br><br>  -->
+<!-- ### Functional analysis   -->
+<!--   * [**Population shift**](scRNA/Daiichi2024_30342.24.05.12.analysis_population.html)   -->
+<!-- <img src="img/scRNA_population.png"><br> -->
+<!--   * [**Gene signature scoring**](scRNA/scRNA_scoring.html)<br> -->
+<!-- <img src="img/scRNA_scoring1.png"><br>   -->
+<!--   * [**Differentially Exprssed Genes Analysis between selected groups**](scRNA/scRNA_scoring.html)<br> -->
+<!--   * [**GSVA**](scRNA/scRNA_scoring.html)    -->
 </div>
 
    
