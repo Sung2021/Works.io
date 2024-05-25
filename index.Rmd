@@ -35,8 +35,15 @@ knitr::opts_chunk$set(echo = TRUE)
   * [P1 Analysis](Paweletz/Daiichi/Daiichi2024_30342.24.05.07.html)
   * [P1 Featureplot shiny app](Paweletz/Daiichi/Daiichi2024_30342.24.05.09.shiny.html)
   * [P1 Cell Type annotation](Paweletz/Daiichi/annotation/Daiichi2024_30342.24.05.10.annotation.html) 
-  * [P1 Marker gene plots](Paweletz/Daiichi/annotation/Daiichi2024_30342.24.05.10.annotation_manual.html)
+  * [P1 Marker gene plots](Paweletz/Daiichi/annotation/Daiichi2024_30342.24.05.10.annotation_manual.html) 
+  * [P1 Subset population DEGs](Paweletz/Daiichi/DC/Daiichi2024_30342.24.05.23.DC.html) 
+  * [P1 Subset population DEGs further analysis](Paweletz/Daiichi/DC/Daiichi2024_30342.24.05.23.DC.DEGs.html)
 
+
+
+**Mouse PBMC 2024**  
+
+  * [Report](Barbie/Mouse_PBMC_NOV_analysis.24.04.04.otherCluster.GSEA.html)
 
 
 
