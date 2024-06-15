@@ -1,0 +1,110 @@
+---
+title: "Project Index"
+subtitle: ""
+author: ""
+
+output:  
+  rmdformats::robobook: 
+    code_folding: show 
+    number_sections: FALSE
+    toc_depth: 6
+    toc_float: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+<br>
+
+
+## DFCI BxMD team : Collarborations with    
+
+* Belfer laboratory 
+  * Barbie lab
+  * Paweletz lab
+  
+* MGH laboratory 
+  * Jain lab
+
+<br><br>
+
+# Belfer laboratory collaboration   
+
+
+### MSLN/TROP2 project using TCGA-BRCA (Barbie:Zehua)    
+
+* [Initial report] (TCGA_BRCA_MSLN_index.html)
+* [Data Preparation from TCGA]
+* [MSLN & TACSTD2 expression]
+
+
+### PDX model RNA-seq analysis (Paweletz:Lauren)  
+
+* [Initial report] (PDX_RNA_seq_Cloud_index.html)
+* [TCSA/ADC correlation and heatmap](Paweletz/PDX_RNA_seq_Cloud_correlation.24.05.05.moreHeatmaps.html)
+
+
+### Daiichi DS-1062a scRNa-seq analysis (Paweletz:Patrick)
+ 
+  * [P1 QC](Paweletz/Daiichi/Daiichi2024_init_30342.v2.html)
+  * [P1 Analysis](Paweletz/Daiichi/Daiichi2024_30342.24.05.07.html)
+  * [P1 Featureplot shiny app](Paweletz/Daiichi/Daiichi2024_30342.24.05.09.shiny.html)
+  * [P1 Cell Type annotation](Paweletz/Daiichi/annotation/Daiichi2024_30342.24.05.10.annotation.html) 
+  * [P1 Marker gene plots](Paweletz/Daiichi/annotation/Daiichi2024_30342.24.05.10.annotation_manual.html) 
+  * [P1 Subset population DEGs](Paweletz/Daiichi/DC/Daiichi2024_30342.24.05.23.DC.html) 
+  * [P1 Subset population DEGs further analysis](Paweletz/Daiichi/DC/Daiichi2024_30342.24.05.23.DC.DEGs.html)
+
+<br>
+
+### Mouse PBMC AD-100 tesing (2023-2024)(Barbie:Yuqing)
+  
+**2023 Anaysis**
+
+* [2023: Figures] (Yuqing_reanalysis_figures.html)
+
+**2024 4T1 data analysis**
+
+* [Report](Barbie/Mouse_PBMC_NOV_analysis.24.04.04.otherCluster.GSEA.html)
+* [Figure] (Mouse_PBMC_NOV_analysis.24.06.03.otherCluster.GSEA.modification.html)
+* [Figure] (Mouse_PBMC_NOV_analysis.24.04.15.BATF3_request.html)
+* [Figure] (Mouse_PBMC_NOV_analysis.24.02.16.f.html)
+
+### STING agnist testing in microfluidic device (Barbie:Yuqing)
+
+* [GESA plot request](Barbie/RNA_seq_Fig4_Request.24.05.03.GSEAPlots.html)
+* [UMI 500-5000 filtering]
+* [Individual cell type analysis]
+  * [HUVEC]
+  * [Fibroblast]
+* [DEG analysis]
+* [Annotation]
+* [Initial Report & Bioinformatics analysis design]
+
+
+
+<br><br><br>
+
+# MGH laboratory collaboration   
+
+### ITK-SYK RNA-seq  
+
+  * [DEG: overlapping genes GSEA](Team_SJ/DEG/RNA_seq_SJ.data.filteredTPM.DEG.24.05.01.html)
+  * [DEG_kmeans 24.04.24](Team_SJ/DEG/RNA_seq_SJ.data.filteredTPM.DEG.24.04.24.html)
+
+### ITK-SYK scRNA-seq  
+
+
+### ITK-SYK ATAC-seq  
+<br><br>
+
+
+### ETC   
+
+
+  * [Cluster Stability study](etc/clusterStability1.html)
+
+<br><hr><br>
+
+
+<br><hr><br>
+
