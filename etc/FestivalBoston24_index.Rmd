@@ -1,0 +1,49 @@
+---
+title: "THE FESTIVAL OF GENOMICS & BIODATA in Boston 2024"
+subtitle: "Personl Note"
+author: "Sung"
+output: 
+  html_document:
+    theme: cosmo
+    highlight: monochrome
+---
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=F, message=F, warning=F)
+```
+
+<br><br>
+
+### THE FESTIVAL OF GENOMICS & BIODATA    
+
+[link](https://festivalofgenomics.com/boston/en/page/boston-home)
+<br><br><br>
+
+
+### Notes 
+
+**Sanofi Presentation**
+
+[link]()
+
+**Astrazeneca Presentation**
+
+[link]()
+
+**Takeda Presentation**
+
+[Single Cell Data Analysis (Bioinformatics Landscape)](FB24/FestivalBoston24_Takeda.html)
+
+**Moderna Presentation**
+
+[link]()
+
+**Single Cell Worksop**
+
+[link]()
+
+<br><br><br><br>
+
+<!-- <br> Update: "`r format(Sys.Date())`" -->

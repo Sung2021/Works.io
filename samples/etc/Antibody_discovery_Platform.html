@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="Sung" />
+
+
+<title>Antibody Discovery Platform</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Antibody Discovery Platform</h1>
+<h4 class="author">Sung</h4>
+
+
+<div id="TOC">
+<ul>
+<li><a href="#antibody-discovery-platforms" id="toc-antibody-discovery-platforms">Antibody Discovery
+Platforms</a></li>
+<li><a href="#bcr-seq" id="toc-bcr-seq">BCR-seq</a></li>
+<li><a href="#utility-of-bcr-seq" id="toc-utility-of-bcr-seq">Utility of
+BCR-seq</a></li>
+<li><a href="#bcr-seq-analysis-tools" id="toc-bcr-seq-analysis-tools">BCR-seq analysis tools</a></li>
+</ul>
+</div>
+
+<p><br><br></p>
+<div id="antibody-discovery-platforms" class="section level2">
+<h2>Antibody Discovery Platforms</h2>
+<ol style="list-style-type: decimal">
+<li><strong>Phage Display Technology</strong>:
+<ul>
+<li>Phage display is a versatile technique that involves expressing
+peptide or protein libraries on the surface of bacteriophages (viruses
+that infect bacteria). This method is used for screening large libraries
+of variants to identify those that bind with high affinity to specific
+targets.</li>
+</ul></li>
+<li><strong>Yeast Display</strong>:
+<ul>
+<li>Similar to phage display, yeast display involves expressing the
+antibody libraries on the surface of yeast cells. This method is
+beneficial for screening because of the eukaryotic post-translational
+modifications that yeast can perform, which are important for the
+function of many antibodies.</li>
+</ul></li>
+<li><strong>Single B Cell Technologies</strong>:
+<ul>
+<li>This approach involves isolating individual B cells (the cells
+responsible for antibody production in the immune system) to capture and
+sequence the antibody genes they produce. Technologies like
+microfluidics and single-cell sequencing have enhanced the throughput
+and precision of this method.</li>
+</ul></li>
+<li><strong>Next-Generation Sequencing (NGS)</strong>:
+<ul>
+<li>NGS of the <strong>B-cell receptor repertoire</strong> allows for an
+in-depth analysis of the diversity of antibody responses. This method
+can generate vast amounts of data on <strong>the sequence
+variability</strong> in the immune response, aiding in the
+identification of highly effective antibodies.</li>
+</ul></li>
+<li><strong>Transgenic Mice</strong>:
+<ul>
+<li>These are mice genetically engineered to produce human antibodies
+when exposed to an antigen. This technology allows for the generation of
+fully human antibodies directly in a living organism, which can then be
+further tested and developed for therapeutic use.</li>
+</ul></li>
+<li><strong>Mass Spectrometry-Based Antibody Profiling</strong>:
+<ul>
+<li>Advanced mass spectrometry techniques are now being used to analyze
+<strong>the structure and function of antibodies at a molecular
+level.</strong> This helps in understanding the complex structure of
+antibody-antigen interactions and improves the selection of candidates
+with the best therapeutic potential.</li>
+</ul></li>
+<li><strong>Artificial Intelligence and Machine Learning</strong>:
+<ul>
+<li>AI and machine learning are increasingly being integrated into
+antibody discovery platforms to predict antibody structures, optimize
+antibody-antigen interactions, and enhance the selection process for
+potential therapeutic antibodies.</li>
+</ul></li>
+</ol>
+</div>
+<div id="bcr-seq" class="section level2">
+<h2>BCR-seq</h2>
+<ol style="list-style-type: decimal">
+<li><strong>Clonotype Identification</strong>:
+<ul>
+<li>The primary goal in analyzing BCR-seq data is to identify
+clonotypes, which are unique BCR sequences that can indicate clonal
+expansions in response to specific antigens. Advanced bioinformatics
+tools are used to assemble these sequences from short reads, identify
+the variable (V), diversity (D), and joining (J) gene segments, and
+annotate the complementarity-determining region 3 (CDR3), crucial for
+antigen specificity.</li>
+</ul></li>
+<li><strong>Diversity Analysis</strong>:
+<ul>
+<li>BCR-seq allows for the measurement of repertoire diversity, which is
+key to understanding the breadth of the immune response. Metrics such as
+diversity indices and clonal richness can be calculated to assess how
+broad or focused the immune response is.</li>
+</ul></li>
+<li><strong>Somatic Hypermutation Analysis</strong>:
+<ul>
+<li>Analyzing the patterns and rates of somatic hypermutations within
+BCR sequences helps in understanding how B cells evolve to refine their
+affinity for antigens. This aspect is particularly important in chronic
+infections and cancer, where ongoing antigen stimulation is
+prevalent.</li>
+</ul></li>
+<li><strong>Longitudinal Monitoring</strong>:
+<ul>
+<li>BCR-seq can be performed over time to monitor changes in the B-cell
+repertoire in response to interventions such as vaccination, infection,
+or autoimmune disease progression. This longitudinal analysis can reveal
+how the immune repertoire adapts over time.</li>
+</ul></li>
+</ol>
+</div>
+<div id="utility-of-bcr-seq" class="section level2">
+<h2>Utility of BCR-seq</h2>
+<ol style="list-style-type: decimal">
+<li><strong>Vaccine Development</strong>:
+<ul>
+<li>BCR-seq is extensively used in vaccine research to identify the
+characteristics of protective antibodies. This information can guide the
+design of vaccines that elicit potent and broad immune responses.</li>
+</ul></li>
+<li><strong>Cancer Immunotherapy</strong>:
+<ul>
+<li>In cancer, BCR-seq is used to explore the diversity and dynamics of
+tumor-infiltrating B cells, which can contribute to anti-tumor immunity.
+Understanding BCRs in the tumor microenvironment can help in designing B
+cell-mediated immunotherapeutic strategies.</li>
+</ul></li>
+<li><strong>Autoimmune Disease Research</strong>:
+<ul>
+<li>By identifying autoreactive clonotypes, BCR-seq helps in
+understanding the etiology of autoimmune diseases and can contribute to
+the development of targeted therapies that modulate harmful immune
+responses.</li>
+</ul></li>
+<li><strong>Infection Response Analysis</strong>:
+<ul>
+<li>BCR-seq is critical in studying the evolution of the immune response
+during infection, particularly for rapidly evolving viruses. This can
+inform treatment strategies and provide insights into immune evasion
+mechanisms.</li>
+</ul></li>
+<li><strong>Diagnostic Tool</strong>:
+<ul>
+<li>BCR-seq has potential as a diagnostic tool, particularly in
+immunodeficiency disorders, by assessing the health and diversity of the
+immune repertoire.</li>
+</ul></li>
+</ol>
+</div>
+<div id="bcr-seq-analysis-tools" class="section level2">
+<h2>BCR-seq analysis tools</h2>
+<ul>
+<li><a href="https://liulab-dfci.github.io/RIMA/Repertoire.html">Immune
+repertoire analysis (TCR/BCR-seq)</a><br></li>
+<li><a href="https://immcantation.readthedocs.io/en/stable/getting_started/10x_tutorial.html">Immcantation
+(BCR-seq: Integration of BCR and GEX Data) 10X Genomics</a><br></li>
+<li><a href="https://immunarch.com/articles/web_only/BCRpipeline.html">immuarch</a><br></li>
+</ul>
+<p><br><br><br><br></p>
+<!-- <br> Update: "2024-06-11" -->
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

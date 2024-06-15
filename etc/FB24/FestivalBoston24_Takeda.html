@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="Sung" />
+
+
+<title>Single Cell Data Analysis (Bioinformatics Landscape)</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Single Cell Data Analysis (Bioinformatics
+Landscape)</h1>
+<h4 class="author">Sung</h4>
+
+
+<div id="TOC">
+<ul>
+<li><a href="#overview" id="toc-overview">Overview</a></li>
+<li><a href="#various-aspects-of-data-handling-and-analysis" id="toc-various-aspects-of-data-handling-and-analysis">Various aspects
+of data handling and analysis</a></li>
+<li><a href="#different-aspects-of-cellular-analysis" id="toc-different-aspects-of-cellular-analysis">Different aspects of
+cellular analysis</a></li>
+<li><a href="#transcriptome-quality-filtering-and-noise-correction" id="toc-transcriptome-quality-filtering-and-noise-correction">Transcriptome:
+Quality Filtering and Noise Correction</a></li>
+<li><a href="#transcriptome-normalization-and-dimensionality-reduction" id="toc-transcriptome-normalization-and-dimensionality-reduction">Transcriptome:
+Normalization and Dimensionality Reduction</a></li>
+<li><a href="#transcriptome-normalization-and-dimensionality-reduction-continued" id="toc-transcriptome-normalization-and-dimensionality-reduction-continued">Transcriptome:
+Normalization and Dimensionality Reduction (continued)</a></li>
+<li><a href="#transcriptome-batch-correction-and-data-integration" id="toc-transcriptome-batch-correction-and-data-integration">Transcriptome:
+Batch Correction and Data Integration</a></li>
+<li><a href="#transcriptome-cross-species-data-integration-and-benchmarking" id="toc-transcriptome-cross-species-data-integration-and-benchmarking">Transcriptome:
+Cross Species Data Integration and Benchmarking</a></li>
+<li><a href="#transcriptome-cross-species-data-integration-and-benchmarking-1" id="toc-transcriptome-cross-species-data-integration-and-benchmarking-1">Transcriptome:
+Cross Species Data Integration and Benchmarking</a></li>
+<li><a href="#transcriptome-cell-clusters-and-cell-identities" id="toc-transcriptome-cell-clusters-and-cell-identities">Transcriptome:
+Cell Clusters and Cell Identities</a></li>
+<li><a href="#transcriptome-cell-clusters-and-cell-identities-continued" id="toc-transcriptome-cell-clusters-and-cell-identities-continued">Transcriptome:
+Cell Clusters and Cell Identities (Continued)</a></li>
+<li><a href="#transcriptome-differential-expression-with-batch-correction-and-covariates" id="toc-transcriptome-differential-expression-with-batch-correction-and-covariates">Transcriptome:
+Differential Expression with Batch Correction and Covariates</a></li>
+<li><a href="#transcriptome-differential-expression-and-mechanistic-insights" id="toc-transcriptome-differential-expression-and-mechanistic-insights">Transcriptome:
+Differential Expression and Mechanistic Insights</a></li>
+</ul>
+</div>
+
+<p><br><br></p>
+<hr />
+<div id="overview" class="section level3">
+<h3>Overview</h3>
+<p><strong>Comprehensive Multi-Stage</strong></p>
+<ul>
+<li>Niyom et al., Frontiers in Cell and Developmental Biology, 2018</li>
+<li>Chon et al., Frontiers in Genetics, 2019</li>
+<li>Laffi et al., Nature Protocols, 2016</li>
+</ul>
+<p><strong>Cell/Nucleus Preparation</strong></p>
+<ul>
+<li>Bakken et al., PLOS One, 2020</li>
+<li>Danilenko, Genome Biology, 2019</li>
+</ul>
+<p><strong>sc-RNAseq Platforms</strong></p>
+<ul>
+<li>Da-Ge et al., Nature Biotechnology, 2020</li>
+<li>Zhegnzhun et al., Molecular Cell, 2017</li>
+</ul>
+<p><strong>Multi-Modal Techniques</strong></p>
+<ul>
+<li>Stuart &amp; Satija, Nature Reviews Genetics, 2019</li>
+<li>Ziyu, Freissl &amp; Ren, Nature Methods, 2020</li>
+</ul>
+<p><strong>Data Analysis &amp; Clustering</strong></p>
+<ul>
+<li>Lucetten &amp; Theis, Molecular Systems Biology, 2019</li>
+<li>Kiselev, Andrews &amp; Hemberg, Nature Reviews Genetics, 2013</li>
+<li>Hasumas et al., Nature Reviews Genetics, 2023</li>
+</ul>
+<p><strong>Differential Expression</strong></p>
+<ul>
+<li>Semenov &amp; Robinson, Nature Methods, 2018</li>
+<li>Wang et al., BMC Bioinformatics, 2019</li>
+<li>Nypenn et al., Nature Communications, 2021</li>
+</ul>
+<p><strong>Trajectory Inference</strong></p>
+<ul>
+<li>Saelens, Nature Biotechnology, 2019</li>
+<li>Doorninkat et al., Current Opinions in Systems Biology, 2021</li>
+</ul>
+<p>[Website] <a href="https://www.sc-best-practices.org/" class="uri">https://www.sc-best-practices.org/</a></p>
+<hr />
+</div>
+<div id="various-aspects-of-data-handling-and-analysis" class="section level3">
+<h3>Various aspects of data handling and analysis</h3>
+<p><strong>Technical variation</strong></p>
+<ul>
+<li>Batch effects</li>
+<li>Cell capture efficiency</li>
+<li>Amplification bias</li>
+<li>Dropout</li>
+</ul>
+<p><strong>Biological variation</strong></p>
+<ul>
+<li>Stochastic gene expression</li>
+<li>Environmental shifts</li>
+<li>Cell cycle</li>
+</ul>
+<p><strong>Data Integration</strong></p>
+<ul>
+<li>Normalized Data</li>
+<li>Corrected Data</li>
+</ul>
+<p><strong>Cell/Nucleus Preparation</strong></p>
+<ul>
+<li>Cell Isolation</li>
+<li>Enrichment</li>
+<li>Characterization</li>
+<li>Cell Integrity Assessment</li>
+</ul>
+<p><strong>Gene Expression Profiling</strong></p>
+<ul>
+<li>Gene Level</li>
+<li>Transcript Level</li>
+<li>Regulatory Network</li>
+<li>Gene Set (Pathway) Analysis</li>
+</ul>
+<p><strong>Computational Analysis</strong></p>
+<ul>
+<li>Many multicomponent</li>
+<li>Separation of clusters and outliers</li>
+<li>Technical vs. biological variation</li>
+<li>Downstream</li>
+<li>Canonical correlation analysis (CCA)</li>
+<li>MAST</li>
+</ul>
+<p><strong>Sample Batch Correction Approaches</strong></p>
+<ul>
+<li>Cell Hashing</li>
+<li>Demuxlet</li>
+<li>MAST</li>
+</ul>
+<hr />
+</div>
+<div id="different-aspects-of-cellular-analysis" class="section level3">
+<h3>Different aspects of cellular analysis</h3>
+<p><strong>Transcriptome</strong></p>
+<p><strong>Chromatin Accessibility</strong></p>
+<p><strong>Surface Protein Expression</strong></p>
+<p><strong>Adaptive Immune Receptor Repertoires</strong></p>
+<p><br><br></p>
+<p><strong>Integrated Data</strong></p>
+<ul>
+<li>Spatial resolution: High</li>
+<li>Quantity: Large</li>
+<li>Depth: Extensive</li>
+<li>Cell Type Coverage: Comprehensive</li>
+</ul>
+<p><strong>Adaptive Immune Receptor Repertoire</strong></p>
+<ul>
+<li>Diversity</li>
+<li>Clonality</li>
+<li>Neoantigens</li>
+</ul>
+<p><strong>Surface Protein</strong></p>
+<ul>
+<li>Receptors</li>
+<li>Ligands</li>
+<li>Co-stimulatory Molecules</li>
+</ul>
+<p><strong>Therapeutic Accessibility</strong></p>
+<ul>
+<li>RNA</li>
+<li>AAV</li>
+</ul>
+<hr />
+</div>
+<div id="transcriptome-quality-filtering-and-noise-correction" class="section level3">
+<h3>Transcriptome: Quality Filtering and Noise Correction</h3>
+<p><strong>Key Words</strong></p>
+<ul>
+<li><strong>Barcodes</strong> – Unique known nucleic acid sequences of
+fixed length used to label individual cells to enable tracking through
+space and time.</li>
+<li><strong>Confounding Sources of Variation</strong> – Technical
+artefacts that arise from library preparation and sequencing, and
+biological confounders such as cell cycle status, which cause systematic
+bias and may distort biological findings.</li>
+<li><strong>Ambient RNA</strong> – mRNA counts that originate from other
+lysed cells in the input solution and do not belong to the cell captured
+in the droplet itself.</li>
+</ul>
+<p><strong>Information and Packages</strong></p>
+<ul>
+<li><strong>Unique Molecular Identifiers (UMI)</strong> – Improved
+alternative to barcodes with less amplification bias.</li>
+<li><strong>Plate-based vs Droplet-based Protocols</strong></li>
+<li><strong>Genome Annotation Selection</strong></li>
+<li><strong>Base Assignment</strong> – Each droplet contains RNA from a
+single intact cell.</li>
+<li><strong>Manual vs Automatic</strong> (mean absolute deviations)</li>
+<li><strong>Quality Control Filtering</strong> should be performed at
+the sample level.</li>
+<li><strong>Always evaluate Quality Covariates together</strong></li>
+<li><strong>Doublet detection and artificial duplicates</strong> –
+multiple methods.</li>
+</ul>
+<p><strong>Tools for QC</strong></p>
+<ul>
+<li><strong>Ambient QC</strong>: SoupX, CellBender</li>
+<li><strong>Doublet Finder</strong>: DoubletFinder, scDblFinder</li>
+</ul>
+<hr />
+</div>
+<div id="transcriptome-normalization-and-dimensionality-reduction" class="section level3">
+<h3>Transcriptome: Normalization and Dimensionality Reduction</h3>
+<p><strong>Key Words</strong></p>
+<ul>
+<li><strong>K nearest-neighbors (KNN) graph</strong> – A computational
+data structure in which cells are represented as nodes in a graph. Based
+on distance metrics such as the Euclidean distance on a
+principal-component reduced expression, cells are connected to their K
+most similar cells.</li>
+<li><strong>Scaling</strong> – Normalization of gene expression levels
+that scales gene counts to zero mean and unit variance</li>
+<li><strong>Batch effects</strong> – Confounding effects that result
+from technical differences in data generation across different batches,
+such as samples obtained through different experimental set-ups or from
+different laboratories</li>
+</ul>
+<p><strong>Information and Packages</strong></p>
+<ul>
+<li><strong>Heterogeneity in Cell Size, Sampling, Batch,
+Sample-Sample</strong> – Affects depth of coverage</li>
+<li><strong>Data Scaling Factor Assumptions</strong> – Heterogeneity
+key</li>
+<li><strong>Use Optimization Depends on Downstream
+Application</strong></li>
+<li><strong>Shifted Log (e.g., Normalized Data) vs Pearson
+Residuals</strong> (scTransform)</li>
+<li><strong>Biological Confounds</strong> – Cell Cycle if declared</li>
+<li><strong>Highly-Variable Features and PCA</strong> –
+Visualization/Summarization</li>
+<li><strong>HVG (Highly Variable Genes)</strong> – Highly sensitive to
+normalization strategy</li>
+</ul>
+<p><strong>Tools</strong></p>
+<ul>
+<li><strong>Normalization</strong>: Scan, Seurat, Scanpy</li>
+<li><strong>Cell Cycle</strong>: Seurat/Scanpy -&gt; <a href="https://bioconductor.org/packages/release/bioc/vignettes/tricycle/inst/doc/tricycle.html">TryCycle</a></li>
+</ul>
+<hr />
+</div>
+<div id="transcriptome-normalization-and-dimensionality-reduction-continued" class="section level3">
+<h3>Transcriptome: Normalization and Dimensionality Reduction
+(continued)</h3>
+<p><strong>Key Features and Benchmarks</strong></p>
+<ul>
+<li><p><strong>Consistency</strong>: We downloaded ten 10x datasets from
+the Gene Expression Omnibus (GEO) database. As there was no formal
+ground truth, we measured the consistency of the results (a necessary,
+although not sufficient, condition for their goodness) by splitting the
+genes of each dataset into two disjoint subsets.</p></li>
+<li><p><strong>Simulation</strong>: We used four different previously
+published simulation frameworks and one adapted by us to generate a
+diverse collection of datasets for which we had full access to the true
+k-NN graph.</p></li>
+<li><p><strong>Downsampling</strong>: We used five deeply sequenced
+datasets based on mcSCRB and Smart-seq3, which we downsampled to
+sequencing depths typical for the 10x technology. We postulated that a
+proxy for ground truth could be constructed from the k-NN graph inferred
+from the deeply sequenced data intersected across all transformations
+which we call relatable nearest neighbor. To our knowledge, this work
+presents the first instance of such a comprehensive approach.</p></li>
+</ul>
+<hr />
+</div>
+<div id="transcriptome-batch-correction-and-data-integration" class="section level3">
+<h3>Transcriptome: Batch Correction and Data Integration</h3>
+<p><strong>Key Words</strong></p>
+<ul>
+<li><strong>K nearest-neighbor (KNN) graph</strong> – A computational
+data structure in which cells are represented as nodes in a graph. Based
+on distance metrics such as the Euclidean distance on a
+principal-component reduced expression, cells are connected to their K
+most similar cells.</li>
+<li><strong>Scaling</strong> – Normalization of gene expression levels
+that scales gene counts to zero mean and unit variance.</li>
+<li><strong>Batch effects</strong> – Confounding effects that result
+from technical differences in data generation across different batches,
+such as samples obtained through different experimental set-ups or from
+different laboratories.</li>
+</ul>
+<p><strong>Information and Packages</strong></p>
+<ul>
+<li><strong>Heterogeneity by Cell Size, Sampling, Batch, Sample-Sample
+Depth of Coverage</strong></li>
+<li><strong>Shifted Log (e.g., NormalizedData) vs Pearson Residuals
+(scTransform)</strong></li>
+<li><strong>Data Scaling Factor Assumptions</strong></li>
+<li><strong>Use Optimization Depends on Downstream
+Application</strong></li>
+<li><strong>Preliminary Visualization of Batch Effects
+Useful</strong></li>
+<li><strong>Biological Confounds</strong> – Cell Cycle if declared</li>
+<li><strong>Highly-Variable Features and PCA</strong> –
+Visualization/Summarization</li>
+</ul>
+<p><strong>Assessment Tools</strong></p>
+<ul>
+<li><strong>scIB</strong></li>
+<li><strong>Batch Effect/Data Integration Tools</strong>: CCA/Harmony,
+scVI, kBET, scGen, Scanorama (tSNE-embedding), LIGER, ZINB-WaVE,
+(scIB)</li>
+</ul>
+<p><strong>Cell Cycle</strong></p>
+<ul>
+<li><strong>Seurat/Scanpy -&gt; TryCycle</strong></li>
+</ul>
+<hr />
+</div>
+<div id="transcriptome-cross-species-data-integration-and-benchmarking" class="section level3">
+<h3>Transcriptome: Cross Species Data Integration and Benchmarking</h3>
+<p><strong>Information and Packages</strong></p>
+<ul>
+<li><strong>Heterogeneity in Cell Size, Sampling, Batch, Sample-Sample
+Depth of Coverage</strong></li>
+<li><strong>28 strategies across 4 gene homology mapping and 9 batch
+integration approaches</strong></li>
+<li><strong>Principal component regression, Average Silhouette Width,
+graph connectivity, and others contributed into overall species-mixing
+score</strong></li>
+</ul>
+<p><strong>Assessment: scIB</strong></p>
+<ul>
+<li><strong>Spender Batch Effect Integration Evaluation</strong>:
+BENGAL, SAMap</li>
+<li><strong>Batch Effect/Data Integration</strong>: CCA/Harmony, LIGER,
+Seurat, scANVI, Scanorama (tSNE-embedding), scVI</li>
+<li><strong>Cell Cycle</strong>: Seurat/Scanpy -&gt; TryCycle</li>
+</ul>
+<p><strong>BENGAL (BENchmarking strategies for cross-species integration
+of single-cell RNA sequencing data)</strong></p>
+<p>Evaluates integration effectiveness across species using varied
+techniques and metrics to provide a comprehensive framework for
+assessing cross-species data integration performance.</p>
+</div>
+<div id="transcriptome-cross-species-data-integration-and-benchmarking-1" class="section level3">
+<h3>Transcriptome: Cross Species Data Integration and Benchmarking</h3>
+<p><strong>Processes Involved:</strong></p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Preprocessing</strong></p>
+<ul>
+<li>1x species data QC</li>
+<li>Adjusted histograms</li>
+<li>Cohorts (e.g., B6MT mice)</li>
+<li>Ontology preparation</li>
+</ul></li>
+<li><p><strong>Adjust and fine-tune evolutionary annotation
+(optional)</strong></p>
+<ul>
+<li>Adjust gene expression and evolution scripts</li>
+<li>Cell ontology</li>
+<li>Gene expression verification and adjustment</li>
+</ul></li>
+<li><p><strong>Build concentrated signal</strong></p>
+<ul>
+<li>Pathway topology centrality</li>
+<li>Cost-structured gene manipulation</li>
+<li>Cell lineage hierarchy</li>
+<li>Evolutionary conservation of signal</li>
+</ul></li>
+<li><p><strong>Data integration</strong></p>
+<ul>
+<li>Workflow pipeline integration</li>
+<li>(Diagram showing integration flow using tools like LIGER, Seurat,
+Harmony, etc.)</li>
+</ul></li>
+</ol>
+<p><strong>Assessment of Species Analogy: Strategy Overview and
+Integration Validity</strong></p>
+<ul>
+<li>Assessment visual flow</li>
+<li>Benchmarks deploying manifold expansion</li>
+<li>Astray’s plot of nets</li>
+<li>Cross-species data consistency</li>
+<li>Geographical information flow</li>
+<li>Integrated data check for 18+ species</li>
+</ul>
+<p><strong>Tools and Methods:</strong></p>
+<ul>
+<li>Multifaceted cross-species integration tools: LIGER, Seurat,
+Harmony, etc.</li>
+<li>Specificity tests: Tissue conservation tests, cross-species
+functional tests</li>
+<li>Outcome and validation: Adjusted grid relay, tissue community
+assessment, cross-species integrated test</li>
+</ul>
+<hr />
+</div>
+<div id="transcriptome-cell-clusters-and-cell-identities" class="section level3">
+<h3>Transcriptome: Cell Clusters and Cell Identities</h3>
+<p><strong>Key Words</strong></p>
+<ul>
+<li><strong>Reference Mapping</strong> – The process of leveraging and
+transferring information from a reference data set to a query</li>
+<li><strong>Cell Fate</strong> – A cell’s final cell type that is
+established by corresponding, specific transcriptional programs</li>
+<li><strong>Trajectory Inference</strong> – Also known as pseudotime
+analysis. Ordering of cells along a trajectory based on gene expression
+similarity</li>
+</ul>
+<p><strong>Information and Packages</strong></p>
+<ul>
+<li>Louvain vs Leiden
+<ul>
+<li>Always check multiple resolutions for robustness</li>
+</ul></li>
+<li>Three Step Approach to Annotation
+<ul>
+<li>Classifier + Reference Mapping (Query to Reference)</li>
+<li>Manual Annotation + Unbiased Clustering</li>
+<li>Expert Annotation</li>
+</ul></li>
+<li>Marker Genes - Wilcoxon Rank Sum Test</li>
+<li>Underlying Topology most important for Trajectory Inference</li>
+</ul>
+<p><strong>Classifiers:</strong> CellTypist, Classify<br />
+<strong>scGPT</strong>. <strong>Reference Based:</strong> scArches,
+Symphony, Azimuth<br />
+<strong>Simple topology:</strong> Slingshot, Monocle<br />
+<strong>Complex Topology:</strong> [PAGA] (<a href="https://scanpy-tutorials.readthedocs.io/en/latest/paga-paul15.html" class="uri">https://scanpy-tutorials.readthedocs.io/en/latest/paga-paul15.html</a>),
+RaceID/StemID</p>
+<hr />
+</div>
+<div id="transcriptome-cell-clusters-and-cell-identities-continued" class="section level3">
+<h3>Transcriptome: Cell Clusters and Cell Identities (Continued)</h3>
+<p><strong>Key Words</strong></p>
+<ul>
+<li><strong>RNA Velocity</strong> – Ratios of spliced mRNA, unspliced
+mRNA and mRNA degradation. Positive ratios (velocities) indicate recent
+increases in unspliced transcripts followed by upregulation of spliced
+transcripts. Negative velocities indicate downregulation. Examining
+velocities across genes can provide insight into future states of
+individual cells.</li>
+<li><strong>Phase Portrait</strong> – For any given gene, the phase
+portrait visualizes splicing kinetics as a parametric curve (with time
+as a parameter).</li>
+<li><strong>Lineage Tracing</strong> – Tracking physiological or
+pathological changes by exogenous or endogenous cell markers such as DNA
+mutations.</li>
+</ul>
+<p><strong>Information and Packages</strong></p>
+<ul>
+<li><strong>Fixation Data</strong> – Add on to incorporate into
+trajectory inference.</li>
+<li><strong>Model Splicing Kinetics</strong> – With proportions of
+intron and exon splicing reads.</li>
+<li><strong>Be Wary of Transcriptional Bursts</strong> – Note caution in
+interpreting data.</li>
+<li><strong>Always Investigate Phase Portrait</strong> – To verify data
+consistency.</li>
+</ul>
+<p><strong>Tools</strong></p>
+<ul>
+<li><strong>RNA Velocity</strong>: Velocyto, scVelo</li>
+<li><strong>Incorporation with TT (Time Travel)</strong> – Enhancing
+cell trajectory analysis.</li>
+</ul>
+<hr />
+</div>
+<div id="transcriptome-differential-expression-with-batch-correction-and-covariates" class="section level3">
+<h3>Transcriptome: Differential Expression with Batch Correction and
+Covariates</h3>
+<p><strong>Key Words</strong></p>
+<ul>
+<li><strong>Differential Gene Expression</strong> – The inference of
+statistically significant differences in expression between groups such
+as healthy and diseased.</li>
+<li><strong>Pseudobulks</strong> – Aggregated cells within a biological
+replicate whereby the data from every single cell is combined via sum or
+mean of counts into a single pseudo-sample to resemble a bulk RNA
+experiment.</li>
+<li><strong>Pseudoreplication</strong> – Also known as subsampling.
+Pseudoreplication occurs when replicates are not statistically
+independent, but are treated as if they were, such as cell samples from
+a single individual.</li>
+</ul>
+<p><strong>Information and Packages</strong></p>
+<ul>
+<li><strong>MAST and Wilcoxon RS</strong> perform well for sparse,
+cell-level sc Data.</li>
+<li>Can be variable and poor with highly expressed genes.</li>
+<li><strong>High TPR vs High Precision</strong></li>
+<li>Whenever available, bulk methods still perform favorably when
+combined with pseudobulking (at sufficient depth).</li>
+</ul>
+<p><strong>Tools</strong></p>
+<ul>
+<li><strong>Single Cell</strong>: MAST (with random effect), Wilcoxon
+RS</li>
+<li><strong>Pseudobulk DE analysis</strong>: DESeq2, limma</li>
+</ul>
+<hr />
+</div>
+<div id="transcriptome-differential-expression-and-mechanistic-insights" class="section level3">
+<h3>Transcriptome: Differential Expression and Mechanistic Insights</h3>
+<p><strong>Key Words</strong></p>
+<ul>
+<li><strong>Gene Set Enrichment</strong> – Grouping genes with shared
+characteristics together and testing for over-representation.</li>
+<li><strong>Compositional Data</strong> – Comprises multi-dimensional
+data points (for example, cell-type composition) in which each component
+(or part) carries only proportional or relative abundance information
+about some whole.</li>
+<li><strong>Cell-Cell Communication</strong> – Interactions of cells
+through secreted ligands and plasma membrane receptors, secreted
+enzymes, extracellular matrix proteins, or cell-cell adhesion proteins
+and gap junctions.</li>
+</ul>
+<p><strong>Information and Packages</strong></p>
+<ul>
+<li><strong>Summarization of molecular insights into interpretable
+terms.</strong></li>
+<li><strong>Databases</strong>: MSigDB, Enrichr, KEGG, Reactome
+<ul>
+<li>Be wary of database coverage biases related to data.</li>
+</ul></li>
+<li><strong>Weighted gene sets</strong>
+<ul>
+<li>Can be applied after DEG (Differential Expression Gene)
+analysis.</li>
+</ul></li>
+<li><strong>Compositional Data vs Internal Normalization</strong></li>
+<li><strong>Perturbation Modeling</strong> (Experimental and In-Silico)
+<ul>
+<li>Cell-Cell Communication – Ligand/Receptor, Beware biases</li>
+</ul></li>
+<li><strong>Perturbation Models</strong> (Experimental): MUSC,
+Microscope, Augur, MELD</li>
+<li><strong>Perturbation Modeling</strong> (In Silico): scGen, CVA,
+CellRox</li>
+<li><strong>Cell-Cell Communication</strong>: CellPhoneDB, CellChat, <a href="https://bioconductor.org/packages/release/bioc/vignettes/SingleCellSignalR/inst/doc/UsersGuide.html">SingleCellSignalR</a>,
+<a href="https://saezlab.github.io/liana/">LIANA</a></li>
+<li><strong>Weighted Gene Sets</strong>: <a href="https://dorothea.opentargets.io/#/">DoRothEA</a>, <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6507172/">GScluster</a></li>
+</ul>
+<hr />
+<p><br><br><br><br></p>
+<!-- <br> Update: "2024-06-14" -->
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
