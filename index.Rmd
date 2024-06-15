@@ -25,7 +25,6 @@ knitr::opts_chunk$set(echo = TRUE)
   
 * MGH laboratory 
   * Jain lab
-
 <br><br>
 
 # Belfer laboratory collaboration   
@@ -44,8 +43,10 @@ knitr::opts_chunk$set(echo = TRUE)
 * [TCSA/ADC correlation and heatmap](Paweletz/PDX_RNA_seq_Cloud_correlation.24.05.05.moreHeatmaps.html)
 
 
-### Daiichi DS-1062a scRNa-seq analysis (Paweletz:Patrick)
- 
+### Daiichi DS-1062a scRNA-seq analysis (Paweletz:Patrick)
+
+* [Project Index] (Daiichi_2024_index.html) 
+
   * [P1 QC](Paweletz/Daiichi/Daiichi2024_init_30342.v2.html)
   * [P1 Analysis](Paweletz/Daiichi/Daiichi2024_30342.24.05.07.html)
   * [P1 Featureplot shiny app](Paweletz/Daiichi/Daiichi2024_30342.24.05.09.shiny.html)
@@ -93,8 +94,11 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ### ITK-SYK scRNA-seq  
 
+* [Project_index] (CD47_initial.24.01.06.html)
 
 ### ITK-SYK ATAC-seq  
+
+* [Differentially Exriched Peak analysis] (SJ_ATAC_seq.unionpeak_DEP_analysis.html)
 <br><br>
 
 
