@@ -1,0 +1,129 @@
+---
+title: "Project Index"
+subtitle: ""
+author: ""
+
+output:  
+  rmdformats::robobook: 
+    code_folding: show 
+    number_sections: FALSE
+    toc_depth: 6
+    toc_float: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+<br>
+
+
+## DFCI BxMD team : Collarborations with    
+
+* Belfer laboratory 
+  * Barbie lab
+  * Paweletz lab
+  
+* MGH laboratory 
+  * Jain lab
+<br><br>
+
+# Belfer laboratory collaboration   
+
+<hr>
+### MSLN/TROP2 project using TCGA-BRCA (Barbie:Zehua)    
+
+* [Introduction](Barbie/MSLN/TCGA_BRCA_MSLN_index.html)
+* [Data Preparation from TCGA]
+* [MSLN/TACSTD2/STING expression](Barbie/MSLN/TCGA_BRCA_MSLN_geneExpression.html)
+
+<hr>
+
+### PDX model RNA-seq analysis (Paweletz:Lauren)  
+
+* [Initial report](Paweletz/PDX_RNASeq/PDX_RNA_seq_Cloud_index.html)
+* [TCSA/ADC correlation and heatmap](Paweletz/PDX_RNASeq/PDX_RNA_seq_Cloud_correlation.24.05.05.moreHeatmaps.html)
+
+<hr>
+
+### Daiichi DS-1062a scRNA-seq analysis (Paweletz:Patrick)
+
+* [Project Index] (Daiichi_2024_index.html) 
+
+  * [P1 QC](Paweletz/Daiichi/Daiichi2024_init_30342.v2.html)
+  * [P1 Analysis](Paweletz/Daiichi/Daiichi2024_30342.24.05.07.html)
+  * [P1 Featureplot shiny app](Paweletz/Daiichi/Daiichi2024_30342.24.05.09.shiny.html)
+  * [P1 Cell Type annotation](Paweletz/Daiichi/annotation/Daiichi2024_30342.24.05.10.annotation.html) 
+  * [P1 Marker gene plots](Paweletz/Daiichi/annotation/Daiichi2024_30342.24.05.10.annotation_manual.html) 
+  * [P1 Subset population DEGs](Paweletz/Daiichi/DC/Daiichi2024_30342.24.05.23.DC.html) 
+  * [P1 Subset population DEGs further analysis](Paweletz/Daiichi/DC/Daiichi2024_30342.24.05.23.DC.DEGs.html)
+
+<hr>
+
+### Daiichi DS-1062a bulk RNA-seq analysis (Paweletz:Patrick)
+
+* [Project Index](Paweletz/Daiichi_bulk_RNASeq/Daiichi_2024_RNAseq_index.html)
+
+  **30342**
+    * [PCA Plot](Paweletz/Daiichi_bulk_RNASeq/Daiichi_2024_bulk_30342_PCA.html)
+    * [TPM matrix/count table](Paweletz/Daiichi_bulk_RNASeq/Daiichi_2024_bulk_30342_TOM.html)
+    * [ssGSEA](Paweletz/Daiichi_bulk_RNASeq/Daiichi_2024_bulk_30342_ssGESA.html)
+    * [Immune Cell Type Composition (TIMER)](Paweletz/Daiichi_bulk_RNASeq/Daiichi_2024_bulk_30342_timer.html)
+
+<br>
+<hr>
+
+### Mouse PBMC AD-100 tesing (2023-2024)(Barbie:Yuqing)
+  
+**2023 Anaysis**
+
+* [2023: Figures](Barbie/ADU100/Yuqing_reanalysis_figures.html)
+
+**2024 4T1 data analysis**
+
+* [Initial Report](Barbie/ADU100/Mouse_PBMC_NOV_analysis.24.04.04.otherCluster.GSEA.html)
+* [Figure1](Barbie/ADU100/Mouse_PBMC_NOV_analysis.24.06.03.otherCluster.GSEA.modification.html)
+* [Figure2](Barbie/ADU100/Mouse_PBMC_NOV_analysis.24.04.15.BATF3_request.html)
+* [Figure3](Barbie/ADU100/Mouse_PBMC_NOV_analysis.24.02.16.f.html)
+
+<hr>
+
+### STING agnist testing in microfluidic device (Barbie:Yuqing)
+
+* [GESA plot request](Barbie/RNA_seq_Fig4_Request.24.05.03.GSEAPlots.html)
+* [UMI 500-5000 filtering]
+* [Individual cell type analysis]
+  * [HUVEC]
+  * [Fibroblast]
+* [DEG analysis]
+* [Annotation]
+* [Initial Report & Bioinformatics analysis design]
+
+<hr>
+
+<br><br><br>
+
+# MGH laboratory collaboration   
+
+### ITK-SYK RNA-seq  
+
+  * [DEG: overlapping genes GSEA](Team_SJ/DEG/RNA_seq_SJ.data.filteredTPM.DEG.24.05.01.html)
+  * [DEG_kmeans 24.04.24](Team_SJ/DEG/RNA_seq_SJ.data.filteredTPM.DEG.24.04.24.html)
+
+### ITK-SYK scRNA-seq  
+
+* [Project_index] (CD47_initial.24.01.06.html)
+
+### ITK-SYK ATAC-seq  
+
+* [Differentially Exriched Peak analysis] (SJ_ATAC_seq.unionpeak_DEP_analysis.html)
+
+
+<br><hr><br>
+
+### Study Note 
+
+#### ML  
+
+* [ML study index](ML/ML_study_index.html)
+
+<br><hr><br>

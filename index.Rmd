@@ -29,19 +29,21 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Belfer laboratory collaboration   
 
-
+<hr>
 ### MSLN/TROP2 project using TCGA-BRCA (Barbie:Zehua)    
 
-* [Initial report] (TCGA_BRCA_MSLN_index.html)
+* [Introduction](Barbie/MSLN/TCGA_BRCA_MSLN_index.html)
 * [Data Preparation from TCGA]
-* [MSLN & TACSTD2 expression]
+* [MSLN/TACSTD2/STING expression](Barbie/MSLN/TCGA_BRCA_MSLN_geneExpression.html)
 
+<hr>
 
 ### PDX model RNA-seq analysis (Paweletz:Lauren)  
 
-* [Initial report] (PDX_RNA_seq_Cloud_index.html)
-* [TCSA/ADC correlation and heatmap](Paweletz/PDX_RNA_seq_Cloud_correlation.24.05.05.moreHeatmaps.html)
+* [Initial report](Paweletz/PDX_RNASeq/PDX_RNA_seq_Cloud_index.html)
+* [TCSA/ADC correlation and heatmap](Paweletz/PDX_RNASeq/PDX_RNA_seq_Cloud_correlation.24.05.05.moreHeatmaps.html)
 
+<hr>
 
 ### Daiichi DS-1062a scRNA-seq analysis (Paweletz:Patrick)
 
@@ -55,20 +57,35 @@ knitr::opts_chunk$set(echo = TRUE)
   * [P1 Subset population DEGs](Paweletz/Daiichi/DC/Daiichi2024_30342.24.05.23.DC.html) 
   * [P1 Subset population DEGs further analysis](Paweletz/Daiichi/DC/Daiichi2024_30342.24.05.23.DC.DEGs.html)
 
+<hr>
+
+### Daiichi DS-1062a bulk RNA-seq analysis (Paweletz:Patrick)
+
+* [Project Index](Paweletz/Daiichi_bulk_RNASeq/Daiichi_2024_RNAseq_index.html)
+
+  **30342**
+    * [PCA Plot](Paweletz/Daiichi_bulk_RNASeq/Daiichi_2024_bulk_30342_PCA.html)
+    * [TPM matrix/count table](Paweletz/Daiichi_bulk_RNASeq/Daiichi_2024_bulk_30342_TOM.html)
+    * [ssGSEA](Paweletz/Daiichi_bulk_RNASeq/Daiichi_2024_bulk_30342_ssGESA.html)
+    * [Immune Cell Type Composition (TIMER)](Paweletz/Daiichi_bulk_RNASeq/Daiichi_2024_bulk_30342_timer.html)
+
 <br>
+<hr>
 
 ### Mouse PBMC AD-100 tesing (2023-2024)(Barbie:Yuqing)
   
 **2023 Anaysis**
 
-* [2023: Figures] (Yuqing_reanalysis_figures.html)
+* [2023: Figures](Barbie/ADU100/Yuqing_reanalysis_figures.html)
 
 **2024 4T1 data analysis**
 
-* [Report](Barbie/Mouse_PBMC_NOV_analysis.24.04.04.otherCluster.GSEA.html)
-* [Figure] (Mouse_PBMC_NOV_analysis.24.06.03.otherCluster.GSEA.modification.html)
-* [Figure] (Mouse_PBMC_NOV_analysis.24.04.15.BATF3_request.html)
-* [Figure] (Mouse_PBMC_NOV_analysis.24.02.16.f.html)
+* [Initial Report](Barbie/ADU100/Mouse_PBMC_NOV_analysis.24.04.04.otherCluster.GSEA.html)
+* [Figure1](Barbie/ADU100/Mouse_PBMC_NOV_analysis.24.06.03.otherCluster.GSEA.modification.html)
+* [Figure2](Barbie/ADU100/Mouse_PBMC_NOV_analysis.24.04.15.BATF3_request.html)
+* [Figure3](Barbie/ADU100/Mouse_PBMC_NOV_analysis.24.02.16.f.html)
+
+<hr>
 
 ### STING agnist testing in microfluidic device (Barbie:Yuqing)
 
@@ -81,7 +98,7 @@ knitr::opts_chunk$set(echo = TRUE)
 * [Annotation]
 * [Initial Report & Bioinformatics analysis design]
 
-
+<hr>
 
 <br><br><br>
 
