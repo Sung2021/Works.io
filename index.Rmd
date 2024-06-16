@@ -32,7 +32,7 @@ knitr::opts_chunk$set(echo = TRUE)
 <hr>
 ### MSLN/TROP2 project using TCGA-BRCA (Barbie:Zehua)    
 
-* [Introduction](Barbie/MSLN/TCGA_BRCA_MSLN_index.html)
+* [Introduction]  <!-- (Barbie/MSLN/TCGA_BRCA_MSLN_index.html) -->
 * [Data Preparation from TCGA]
 * [MSLN/TACSTD2/STING expression](Barbie/MSLN/TCGA_BRCA_MSLN_geneExpression.html)
 
@@ -47,16 +47,21 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ### Daiichi DS-1062a scRNA-seq analysis (Paweletz:Patrick)
 
-* [Project Index] (Daiichi_2024_index.html) 
+* [Project Index](Paweletz/Daiichi/Daiichi_2024_index.html)
 
+  **30342**
   * [P1 QC](Paweletz/Daiichi/Daiichi2024_init_30342.v2.html)
-  * [P1 Analysis](Paweletz/Daiichi/Daiichi2024_30342.24.05.07.html)
+  * [P1 UMAP/Cluster/Marker](Paweletz/Daiichi/Daiichi2024_30342.24.05.07.html)
   * [P1 Featureplot shiny app](Paweletz/Daiichi/Daiichi2024_30342.24.05.09.shiny.html)
   * [P1 Cell Type annotation](Paweletz/Daiichi/annotation/Daiichi2024_30342.24.05.10.annotation.html) 
   * [P1 Marker gene plots](Paweletz/Daiichi/annotation/Daiichi2024_30342.24.05.10.annotation_manual.html) 
   * [P1 Subset population DEGs](Paweletz/Daiichi/DC/Daiichi2024_30342.24.05.23.DC.html) 
   * [P1 Subset population DEGs further analysis](Paweletz/Daiichi/DC/Daiichi2024_30342.24.05.23.DC.DEGs.html)
+<br><br>
 
+  **30348**
+  * [P2 QC](Paweletz/Daiichi/Daiichi2024_30348.24.05.21.QC.html)
+  * [P2 UMAP/Cluster/Marker](Paweletz/Daiichi/Daiichi2024_30348.24.06.11.html)
 <hr>
 
 ### Daiichi DS-1062a bulk RNA-seq analysis (Paweletz:Patrick)
