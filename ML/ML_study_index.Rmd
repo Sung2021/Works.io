@@ -1,0 +1,57 @@
+---
+title: "ML study index"
+author: "Sung Rye Park"
+date: "`r format(Sys.Date())`"
+output: 
+  html_document:
+    theme: flatly
+    toc: yes
+    toc_float:
+      collapsed: true
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=T, eval =T, fig.align = "left", 
+                      message=F, warning=F,
+                      results = "markup",
+                      error = TRUE,
+                      highlight = TRUE,
+                      prompt = FALSE,
+                      tidy = FALSE)
+```
+
+
+### Data preparation
+
+[link]()<br>
+
+<br><br><br><br><br>
+
+### PCA plot 
+
+
+[link]()<br>
+<br><br><br><br><br>
+
+### Differentially Expressed Genes (DEG) analysis  
+
+[link]()<br>
+<br><br><br><br><br>
+
+### GSEA  
+
+[link]()<br>
+<br><br><br><br><br>
+
+### ssGSEA  
+
+[link]()<br>
+<br><br><br><br><br>
+
+### Online resources     
+
+* [5 Free Datasets to Start Your Machine Learning Projects](https://machinelearningmastery.com/5-free-datasets-start-your-machine-learning-projects/)
+* [Machin Learning Mastery](https://machinelearningmastery.com)
+* [Step-by-Step Guides](https://machinelearningmastery.com/start-here/#algorithms)
+<br><br><br><br><br>
+
+

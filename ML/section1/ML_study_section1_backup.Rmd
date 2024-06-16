@@ -1,0 +1,47 @@
+---
+title: "ML study index"
+author: "Sung Rye Park"
+date: "`r format(Sys.Date())`"
+output: 
+  html_document:
+    theme: flatly
+    toc: yes
+    toc_float:
+      collapsed: true
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=T, eval =T, fig.align = "left", 
+                      message=F, warning=F,
+                      results = "markup",
+                      error = TRUE,
+                      highlight = TRUE,
+                      prompt = FALSE,
+                      tidy = FALSE)
+```
+
+
+### 5-Step Systematic Process
+
+* Define the Problem
+* Prepare Data
+* Spot Check Algorithms
+* Improve Results
+* Present Results
+<br><br><br><br><br>
+
+#### 1. Define the Problem
+
+#### 2. Prepare Data
+
+Step 1: Data Selection  
+Step 2: Data Preprocessing  
+Step 3: Data Transformation  
+
+#### 3. Spot Check Algorithms  
+
+#### 4. Improve Results
+
+Algorithm Tuning: where discovering the best models is treated like a search problem through model parameter space.  
+Ensemble Methods: where the predictions made by multiple models are combined.  
+Extreme Feature Engineering: where the attribute decomposition and aggregation seen in data preparation is pushed to the limits.  
+

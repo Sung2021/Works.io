@@ -99,16 +99,14 @@ knitr::opts_chunk$set(echo = TRUE)
 ### ITK-SYK ATAC-seq  
 
 * [Differentially Exriched Peak analysis] (SJ_ATAC_seq.unionpeak_DEP_analysis.html)
-<br><br>
-
-
-### ETC   
-
-
-  * [Cluster Stability study](etc/clusterStability1.html)
-
-<br><hr><br>
 
 
 <br><hr><br>
 
+### Study Note 
+
+#### ML  
+
+* [ML study index](ML/ML_study_index.html)
+
+<br><hr><br>

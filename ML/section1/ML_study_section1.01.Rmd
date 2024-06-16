@@ -1,0 +1,194 @@
+---
+title: "ML study index"
+author: "Sung Rye Park"
+date: "`r format(Sys.Date())`"
+output: 
+  html_document:
+    theme: flatly
+    toc: yes
+    toc_float:
+      collapsed: true
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=T, eval =T, fig.align = "left", 
+                      message=F, warning=F,
+                      results = "markup",
+                      error = TRUE,
+                      highlight = TRUE,
+                      prompt = FALSE,
+                      tidy = FALSE)
+```
+
+
+Parametric Machine Learning Algorithms
+매개 변수 기계 학습 알고리즘
+
+가정은 학습 과정을 크게 단순화할 수 있지만, 동시에 학습할 수 있는 내용에 제한을 줄 수 있습니다. 함수를 알려진 형태로 단순화하는 알고리즘을 매개 변수 기계 학습 알고리즘이라고 합니다.
+
+이 알고리즘은 두 단계로 이루어집니다:
+
+1. 함수의 형태를 선택합니다.
+2. 훈련 데이터에서 함수의 계수를 학습합니다.
+매핑 함수의 이해하기 쉬운 함수형은 선형 회귀에서 사용되는 직선입니다:
+
+b0 + b1*x1 + b2*x2 = 0
+
+여기서 b0, b1, b2는 직선의 절편과 기울기를 조절하는 계수이며, x1과 x2는 두 입력 변수입니다.
+
+직선의 함수형을 가정하는 것은 학습 과정을 크게 단순화합니다. 이제 해야 할 일은 직선 방정식의 계수를 추정하는 것이며, 그러면 문제에 대한 예측 모델을 가지게 됩니다.
+
+자주 가정된 함수형은 입력 변수의 선형 결합이므로, 매개 변수 기계 학습 알고리즘은 종종 "선형 기계 학습 알고리즘"이라고도 불립니다.
+
+문제는 실제로 알려지지 않은 기본 함수가 선형 함수일 수도 있고, 입력 데이터를 약간 변형하면 작동할 수도 있습니다. 또는 선형 함수와 전혀 다를 수도 있어서, 이 경우 가정이 틀렸다면 접근 방식이 좋지 않은 결과를 낼 것입니다.
+
+매개 변수 기계 학습 알고리즘의 몇 가지 예는 다음과 같습니다:
+
+- 로지스틱 회귀
+- 선형 판별 분석
+- 퍼셉트론
+- 나이브 베이즈
+- 간단한 신경망
+
+Benefits of Parametric Machine Learning Algorithms:
+
+Simpler: These methods are easier to understand and interpret results.
+Speed: Parametric models are very fast to learn from data.
+Less Data: They do not require as much training data and can work well even if the fit to the data is not perfect.
+Limitations of Parametric Machine Learning Algorithms:
+
+Constrained: By choosing a functional form these methods are highly constrained to the specified form.
+Limited Complexity: The methods are more suited to simpler problems.
+Poor Fit: In practice the methods are unlikely to match the underlying mapping function.
+
+매개 변수 기계 학습 알고리즘의 장점:
+
+1. **간단함**: 이 방법들은 결과를 이해하고 해석하기가 더 쉽습니다.
+2. **속도**: 매개 변수 모델은 데이터로부터 학습하는 속도가 매우 빠릅니다.
+3. **적은 데이터**: 이들은 그렇게 많은 훈련 데이터를 요구하지 않으며, 데이터에 완벽하게 맞지 않더라도 잘 작동할 수 있습니다.
+
+매개 변수 기계 학습 알고리즘의 한계:
+
+1. **제약**: 기능적 형태를 선택함으로써 이 방법들은 지정된 형태에 크게 제한됩니다.
+2. **복잡성의 한계**: 이 방법들은 더 간단한 문제에 더 적합합니다.
+3. **부적합**: 실제로 이 방법들은 기본 매핑 함수와 일치하기 어려울 수 있습니다.
+
+
+
+
+Parametric and Nonparametric Machine Learning Algorithms
+
+by Jason Brownlee on August 15, 2020 in Machine Learning Algorithms  64
+ Share  Tweet  Share
+What is a parametric machine learning algorithm and how is it different from a nonparametric machine learning algorithm?
+
+In this post you will discover the difference between parametric and nonparametric machine learning algorithms.
+
+Kick-start your project with my new book Master Machine Learning Algorithms, including step-by-step tutorials and the Excel Spreadsheet files for all examples.
+
+Let’s get started.
+
+Parametric and Nonparametric Machine Learning Algorithms
+Parametric and Nonparametric Machine Learning Algorithms
+Photo by John M., some rights reserved.
+Learning a Function
+
+Machine learning can be summarized as learning a function (f) that maps input variables (X) to output variables (Y).
+
+Y = f(x)
+
+An algorithm learns this target mapping function from training data.
+
+The form of the function is unknown, so our job as machine learning practitioners is to evaluate different machine learning algorithms and see which is better at approximating the underlying function.
+
+Different algorithms make different assumptions or biases about the form of the function and how it can be learned.
+
+
+Get your FREE Algorithms Mind Map
+
+Machine Learning Algorithms Mind Map
+Sample of the handy machine learning algorithms mind map.
+I've created a handy mind map of 60+ algorithms organized by type.
+
+Download it, print it and use it. 
+
+Download For Free
+
+Also get exclusive access to the machine learning algorithms email mini-course.
+
+ 
+
+ 
+
+
+Parametric Machine Learning Algorithms
+
+Assumptions can greatly simplify the learning process, but can also limit what can be learned. Algorithms that simplify the function to a known form are called parametric machine learning algorithms.
+
+A learning model that summarizes data with a set of parameters of fixed size (independent of the number of training examples) is called a parametric model. No matter how much data you throw at a parametric model, it won’t change its mind about how many parameters it needs.
+
+— Artificial Intelligence: A Modern Approach, page 737
+
+The algorithms involve two steps:
+
+Select a form for the function.
+Learn the coefficients for the function from the training data.
+An easy to understand functional form for the mapping function is a line, as is used in linear regression:
+
+b0 + b1*x1 + b2*x2 = 0
+
+Where b0, b1 and b2 are the coefficients of the line that control the intercept and slope, and x1 and x2 are two input variables.
+
+Assuming the functional form of a line greatly simplifies the learning process. Now, all we need to do is estimate the coefficients of the line equation and we have a predictive model for the problem.
+
+Often the assumed functional form is a linear combination of the input variables and as such parametric machine learning algorithms are often also called “linear machine learning algorithms“.
+
+The problem is, the actual unknown underlying function may not be a linear function like a line. It could be almost a line and require some minor transformation of the input data to work right. Or it could be nothing like a line in which case the assumption is wrong and the approach will produce poor results.
+
+Some more examples of parametric machine learning algorithms include:
+
+Logistic Regression
+Linear Discriminant Analysis
+Perceptron
+Naive Bayes
+Simple Neural Networks
+Benefits of Parametric Machine Learning Algorithms:
+
+Simpler: These methods are easier to understand and interpret results.
+Speed: Parametric models are very fast to learn from data.
+Less Data: They do not require as much training data and can work well even if the fit to the data is not perfect.
+Limitations of Parametric Machine Learning Algorithms:
+
+Constrained: By choosing a functional form these methods are highly constrained to the specified form.
+Limited Complexity: The methods are more suited to simpler problems.
+Poor Fit: In practice the methods are unlikely to match the underlying mapping function.
+
+Nonparametric Machine Learning Algorithms
+
+Algorithms that do not make strong assumptions about the form of the mapping function are called nonparametric machine learning algorithms. By not making assumptions, they are free to learn any functional form from the training data.
+
+Nonparametric methods are good when you have a lot of data and no prior knowledge, and when you don’t want to worry too much about choosing just the right features.
+
+— Artificial Intelligence: A Modern Approach, page 757
+
+Nonparametric methods seek to best fit the training data in constructing the mapping function, whilst maintaining some ability to generalize to unseen data. As such, they are able to fit a large number of functional forms.
+
+An easy to understand nonparametric model is the k-nearest neighbors algorithm that makes predictions based on the k most similar training patterns for a new data instance. The method does not assume anything about the form of the mapping function other than patterns that are close are likely to have a similar output variable.
+
+Some more examples of popular nonparametric machine learning algorithms are:
+
+k-Nearest Neighbors
+Decision Trees like CART and C4.5
+Support Vector Machines
+Benefits of Nonparametric Machine Learning Algorithms:
+
+Flexibility: Capable of fitting a large number of functional forms.
+Power: No assumptions (or weak assumptions) about the underlying function.
+Performance: Can result in higher performance models for prediction.
+Limitations of Nonparametric Machine Learning Algorithms:
+
+More data: Require a lot more training data to estimate the mapping function.
+Slower: A lot slower to train as they often have far more parameters to train.
+Overfitting: More of a risk to overfit the training data and it is harder to explain why specific predictions are made.
+
+
+
