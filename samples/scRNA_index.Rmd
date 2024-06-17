@@ -41,8 +41,11 @@ knitr::opts_chunk$set(echo = TRUE, eval = F)
 
 ### Marker gene Analyais   
 
-  * [**Marker genes summary report**](scRNA/scRNA_UMAP.html)  
-<br><br><br>  
+  * [**Marker genes summary report**](scRNA/Daiichi.example.markers.html)  
+<br>
+<img src="img/scRNA_markers.png"><br>
+<br><br>
+<br><br>  
 
 ### Differentially Expressed Genes Analyais   
 

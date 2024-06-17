@@ -1,0 +1,251 @@
+---
+title: "scRNA-seq"
+subtitle: "Marker genes"
+author: "Sung Rye Park"
+date: "`r format(Sys.Date())`"
+output:  
+  rmdformats::robobook: 
+    code_folding: show 
+    number_sections: FALSE
+    toc_depth: 6
+    toc_float: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=F, fig.align = "left", 
+                      message=F, warning=F,
+                      results = "markup",
+                      error = TRUE,
+                      highlight = TRUE,
+                      prompt = FALSE,
+                      tidy = FALSE)
+```
+
+```{r}
+## load required packages
+library(Seurat)
+library(cowplot)
+library(dplyr)
+library(ggplot2)
+library(DT)
+library(paletteer)
+library(viridis)
+```
+
+
+```{r, echo=FALSE}
+dir= "~/Desktop/tmp/"
+obj.srt = readRDS(paste0(dir,"P30348.sample.rds"))
+```
+
+```{r, eval=FALSE, echo=FALSE}
+# This process was done previously.
+## perform default analysis
+perform_default_analysis <- function(obj.srt, n_features = 2000, n_pcs = 20, 
+                                     dims_for_neighbors = 1:20, 
+                                     resolutions = c(0.2,0.4), 
+                                     umap_dims = 1:20) {
+  # Step 1: Find variable features
+  obj.srt <- FindVariableFeatures(obj.srt, 
+                                  selection.method = 'vst', 
+                                  nfeatures = n_features)
+  
+  # Step 2: Scale and normalize data
+  all_genes <- rownames(obj.srt)
+  obj.srt <- NormalizeData(obj.srt)
+  obj.srt <- ScaleData(obj.srt, features = all_genes)
+  
+  # Step 3: Run PCA
+  obj.srt <- RunPCA(obj.srt, 
+                    features = VariableFeatures(object = obj.srt), npcs = n_pcs)
+  
+  # Step 4: Find neighbors
+  obj.srt <- FindNeighbors(obj.srt, dims = dims_for_neighbors)
+  
+  # Step 5: Find clusters
+  obj.srt <- FindClusters(obj.srt, resolution = resolutions)
+  
+  # Step 6: Run UMAP
+  obj.srt <- RunUMAP(obj.srt, dims = umap_dims)
+  
+  # Return the Seurat object with analysis results
+  return(obj.srt)
+}
+
+# apply
+obj.srt <- perform_default_analysis(obj.srt, umap_dims = 1:10)
+```
+
+
+```{r}
+df = obj.srt@meta.data
+
+df = df %>% mutate(sample = case_when(orig.ident == "P30348_D" ~ "TRT1",
+                                      orig.ident == "P30348_A" ~ "TRT2",))
+obj.srt@meta.data = df
+```
+
+
+# Markers 
+
+* resolution 0.2  
+* resolution 0.4  
+<br>
+
+```{r}
+resolution_values <- c(0.2, 0.4)
+```
+
+```{r, eval=FALSE, echo=F}
+# Marker gene Identification
+find_and_save_markers <- function(obj.srt, cluster_id, logfc_threshold = 1.2,
+                                  test_method = 'wilcox', min_percent = 0.25) {
+  Idents(obj.srt) = cluster_id
+  all.markers = FindAllMarkers(obj.srt, logfc.threshold = log2(logfc_threshold),
+                               only.pos = TRUE,
+                               test.use = test_method, min.pct = min_percent)
+  return(all.markers)
+}
+# apply:
+
+resolution_values <- c(0.2, 0.4)
+
+
+res <- paste0("RNA_snn_res.", resolution_values[1])
+res.mks.1 = find_and_save_markers(obj.srt= obj.srt, cluster_id = res,
+                                   logfc_threshold = 1.2, test_method = 'wilcox', min_percent = 0.25)
+
+res <- paste0("RNA_snn_res.", resolution_values[2])
+res.mks.2 = find_and_save_markers(obj.srt= obj.srt, cluster_id = res,
+                                   logfc_threshold = 1.2, test_method = 'wilcox', min_percent = 0.25)
+
+res.mks.1 %>% write.csv("~/Desktop/git/works.io/Paweletz/res.mks.1.csv")
+res.mks.2 %>% write.csv("~/Desktop/git/works.io/Paweletz/res.mks.2.csv")
+```
+
+
+## Markers (0.2) {.tabset}
+
+
+### Table
+
+**Download cluster marker file**  
+```{r}
+res <- paste0("RNA_snn_res.", resolution_values[1])
+mks = read.csv("~/Desktop/git/works.io/Paweletz/res.mks.1.csv", row.names = 1)
+mks$cluster = paste0("cluster", mks$cluster)
+len =length(levels(obj.srt@meta.data[,res]))
+DT::datatable(mks, editable = TRUE, extensions = "Buttons", options = list(dom="Bfrtip", buttons=c("csv","excel"), pageLength=len))
+mks0.2= mks
+```
+
+### Number of Markers 
+```{r}
+mks = mks0.2
+mks %>% ggplot(aes(cluster, fill= cluster)) +
+  geom_bar(alpha=0.7, color="grey5", size=0.1,show.legend = FALSE) +
+  geom_text(stat="count", aes(label= ..count..), vjust=-0.5, size=3) +
+  xlab("") + ylab("Number of Marker Genes") +
+  theme_classic() +
+  theme(legend.title = element_blank(),
+        axis.text.x = element_text(angle = 45, hjust=1)) 
+
+```
+
+
+### Heatmap (res 0.2) 
+
+Top 5 genes from each cluster   
+
+```{r, fig.width=14, fig.height=8}
+res <- paste0("RNA_snn_res.", resolution_values[1])
+
+mks = mks0.2
+genes = mks %>% group_by(cluster) %>% top_n(5, avg_log2FC) %>% select(gene) %>% pull()
+Idents(obj.srt) = res
+
+palette <- wesanderson::wes_palette("FantasticFox1", length(levels(obj.srt@meta.data[,res])), type = "continuous")
+
+
+DoHeatmap(obj.srt, features = genes, group.colors = palette) +
+  scale_fill_viridis(option="magma") + 
+  theme(axis.title.x.top = element_text(size = 4))
+```
+
+### Dotplot (0.2)
+
+```{r, fig.width=9, fig.height=4}
+my_palette <- c(colorRampPalette(colors = c("#2874A6","white"))(12), colorRampPalette(colors = c("white","red"))(30))
+
+obj.srt$group = factor(obj.srt$RNA_snn_res.0.2, 
+                                      levels = rev(levels(obj.srt$RNA_snn_res.0.2)))
+DotPlot(obj.srt, features = genes, 
+        group.by = "group") +
+  scale_color_gradientn(colors = my_palette) +
+  theme_bw() + 
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  xlab("") +ylab("") 
+```
+
+
+## Markers (0.4) {.tabset}
+
+
+### Table
+
+**Download cluster marker file** 
+```{r}
+res <- paste0("RNA_snn_res.", resolution_values[2])
+mks = read.csv("~/Desktop/git/works.io/Paweletz/res.mks.2.csv", row.names = 1)
+mks$cluster = paste0("cluster", mks$cluster)
+len =length(levels(obj.srt@meta.data[,res]))
+DT::datatable(mks, editable = TRUE, extensions = "Buttons", options = list(dom="Bfrtip", buttons=c("csv","excel"), pageLength=len))
+mks0.4= mks
+```
+
+### Number of Markers 
+```{r}
+mks = mks0.4
+mks %>% ggplot(aes(cluster, fill= cluster)) +
+  geom_bar(alpha=0.7, color="grey5", size=0.1,show.legend = FALSE) +
+  geom_text(stat="count", aes(label= ..count..), vjust=-0.5, size=3) +
+  xlab("") + ylab("Number of Marker Genes") +
+  theme_classic() +
+  theme(legend.title = element_blank(),
+        axis.text.x = element_text(angle = 45, hjust=1)) 
+```
+
+### Heatmap (res 0.4) 
+
+Top 5 genes from each cluster   
+
+
+```{r, fig.width=14, fig.height=8}
+res <- paste0("RNA_snn_res.", resolution_values[2])
+
+mks = mks0.4
+genes = mks %>% group_by(cluster) %>% top_n(5, avg_log2FC) %>% select(gene) %>% pull()
+Idents(obj.srt) = res
+
+palette <- wesanderson::wes_palette("FantasticFox1", length(levels(obj.srt@meta.data[,res])), type = "continuous")
+
+
+DoHeatmap(obj.srt, features = genes, group.colors = palette) +
+  scale_fill_viridis(option="magma") + 
+  theme(axis.title.x.top = element_text(size = 4))
+```
+
+
+### Dotplot (0.4)
+```{r, fig.width=9, fig.height=4}
+my_palette <- c(colorRampPalette(colors = c("#2874A6","white"))(12), colorRampPalette(colors = c("white","red"))(30))
+
+obj.srt$group = factor(obj.srt$RNA_snn_res.0.4, 
+                                      levels = rev(levels(obj.srt$RNA_snn_res.0.4)))
+DotPlot(obj.srt, features = genes, 
+        group.by = "group") +
+  scale_color_gradientn(colors = my_palette) +
+  theme_bw() + 
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  xlab("") +ylab("") 
+```
