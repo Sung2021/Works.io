@@ -18,11 +18,19 @@ knitr::opts_chunk$set(echo=T, eval =T, fig.align = "left",
                       prompt = FALSE,
                       tidy = FALSE)
 ```
+<br><br>
 
 
-### Data preparation
+### Caret (R)
 
-[link]()<br>
+### **Data Preparation in R**
+
+#### [Feature selection](caret/caret_feature.html) 
+
+
+#### [Pre-Processing](caret/caret_preprocessing.html)
+
+* [tutorial link](https://machinelearningmastery.com/pre-process-your-dataset-in-r/)
 
 <br><br><br><br><br>
 

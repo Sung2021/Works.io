@@ -1,0 +1,88 @@
+---
+title: "Study Link Collections"
+subtitle: ""
+author: "Sung Rye Park"
+date: "`r format(Sys.Date())`"
+output:  
+  rmdformats::robobook: 
+    code_folding: show 
+    number_sections: FALSE
+    toc_depth: 6
+    toc_float: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=T, eval =T, fig.align = "left", 
+                      message=F, warning=F,
+                      results = "markup",
+                      error = TRUE,
+                      highlight = TRUE,
+                      prompt = FALSE,
+                      tidy = FALSE)
+```
+
+
+### Computational Biology
+
+[Intro to Computational Biology - UNC BIOS/BCB 784](https://biodatascience.github.io/compbio/)<br>
+[Surrogate variable analysis: hidden batch effects](https://biodatascience.github.io/compbio/dist/sva.html)<br>
+[Network analysis of DNA loops](https://biodatascience.github.io/compbio/net/network.html)<br>
+
+
+### scanpy function
+
+[Core plotting functions](https://scanpy-tutorials.readthedocs.io/en/latest/plotting/core.html#)<br>
+
+### ML
+
+#### Youtube
+
+[입문강의](https://www.youtube.com/watch?v=CgSvahZkJmc)<br>
+[Machine Learning Mastery](https://machinelearningmastery.com/prepare-data-machine-learning-python-scikit-learn/)<br>
+
+
+#### Statistical Inference via Data Science (ModernDive)
+
+- [Chapter 5 Basic Regression](https://moderndive.com/5-regression.html)<br>
+
+
+#### Feature Engineering and Selection 
+
+- [Feature Engineering and Selection : github](https://github.com/topepo/FES)<br>
+
+
+
+### Bioconductor
+
+[MesKit: Analyze and Visualize Multi-region Whole-exome Sequencing Data](https://www.bioconductor.org/packages/release/bioc/vignettes/MesKit/inst/doc/MesKit.html)<br>
+[maftools : Summarize, Analyze and Visualize MAF Files](https://bioconductor.statistik.tu-dortmund.de/packages/3.5/bioc/vignettes/maftools/inst/doc/maftools.html)<br>
+
+[copykat](https://github.com/navinlabcode/copykat)<br>
+CopyKAT: Inference of genomic copy number and subclonal structure of human tumors from high-throughput single cell RNAseq data<br>
+[ArchR](https://www.archrproject.com/index.html)<br>
+scATAC-seq<br>
+
+### HKU Single-cell Workshop 2021
+
+[Main](https://statbiomed.github.io/SingleCell-Workshop-2021/)<br>
+[Chapter 4 Somatic mutation analysis in single cells](https://statbiomed.github.io/SingleCell-Workshop-2021/SNV-analysis.html)<br>
+
+
+
+### ETC
+
+[The CTAT Genome Lib](https://github.com/TrinityCTAT/ctat-genome-lib-builder/wiki)<br>
+
+
+### DNA Nexus documentation 
+
+- [dxCompiler](https://documentation.dnanexus.com/developer/building-and-executing-portable-containers-for-bioinformatics-software/dxcompiler)<br>
+
+
+### Good Examples 
+
+- [maggiebr0wn github](https://github.com/maggiebr0wn)<br>
+- [roman-hille github](https://romanhaa.github.io)<br>
+
+<br><br><br><br><br>
+

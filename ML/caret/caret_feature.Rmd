@@ -1,0 +1,99 @@
+---
+title: "Caret"
+subtitle: "Feature Selection with the Caret R Package"
+author: "Sung Rye Park"
+date: "`r format(Sys.Date())`"
+output:  
+  rmdformats::robobook: 
+    code_folding: show 
+    number_sections: FALSE
+    toc_depth: 6
+    toc_float: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=T, eval =T, fig.align = "left", 
+                      message=F, warning=F,
+                      results = "markup",
+                      error = TRUE,
+                      highlight = TRUE,
+                      prompt = FALSE,
+                      tidy = FALSE)
+```
+
+[tutorial link](https://machinelearningmastery.com/feature-selection-with-the-caret-r-package/)
+
+### 1. Remove Redundant Features
+
+```{r}
+# ensure the results are repeatable
+set.seed(7)
+# load the library
+library(mlbench)
+library(caret)
+# load the data
+data(PimaIndiansDiabetes)
+# calculate correlation matrix
+correlationMatrix <- cor(PimaIndiansDiabetes[,1:8])
+# summarize the correlation matrix
+print(correlationMatrix)
+# find attributes that are highly corrected (ideally >0.75)
+highlyCorrelated <- findCorrelation(correlationMatrix, cutoff=0.5) # caret 
+# 상관 관계 행렬에서 임계값 0.5 이상의 높은 상관 관계를 가진 변수들의 인덱스를 찾습니다
+# print indexes of highly correlated attributes
+print(highlyCorrelated)
+
+# 상관관계가 높은 변수 이름 출력
+highlyCorrelatedNames <- names(PimaIndiansDiabetes)[highlyCorrelated]
+print(highlyCorrelatedNames)
+```
+
+### 2. Rank Features By Importance
+```{r}
+# ensure results are repeatable
+set.seed(7)
+# load the library
+# library(mlbench)
+# library(caret)
+# load the dataset
+# data(PimaIndiansDiabetes)
+# prepare training scheme
+control <- trainControl(method="repeatedcv", number=10, repeats=3)
+# train the model
+model <- train(diabetes~., data=PimaIndiansDiabetes, method="lvq", preProcess="scale", trControl=control)
+# estimate variable importance
+importance <- varImp(model, scale=FALSE)
+# summarize importance
+print(importance)
+# plot importance
+plot(importance)
+```
+
+### 3. Feature Selection
+
+```{r}
+# ensure the results are repeatable
+set.seed(7)
+library(randomForest)
+# load the library
+# library(mlbench)
+# library(caret)
+# load the data
+# data(PimaIndiansDiabetes)
+# define the control using a random forest selection function
+control <- rfeControl(functions=rfFuncs, method="cv", number=10)
+# run the RFE algorithm
+results <- rfe(PimaIndiansDiabetes[,1:8], PimaIndiansDiabetes[,9], sizes=c(1:8), rfeControl=control)
+# summarize the results
+print(results)
+# list the chosen features
+predictors(results)
+# plot the results
+plot(results, type=c("g", "o"))
+```
+
+
+<hr>
+
+<br><br><br><br><br>
+

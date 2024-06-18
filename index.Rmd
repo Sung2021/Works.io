@@ -27,7 +27,7 @@ knitr::opts_chunk$set(echo = TRUE)
   * Jain lab
 <br><br>
 
-# Belfer laboratory collaboration   
+## Belfer laboratory collaboration   
 
 <hr>
 ### MSLN/TROP2 project using TCGA-BRCA (Barbie:Zehua)    
@@ -107,7 +107,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 <br><br><br>
 
-# MGH laboratory collaboration   
+## MGH laboratory collaboration   
 
 ### ITK-SYK RNA-seq  
 
@@ -125,10 +125,14 @@ knitr::opts_chunk$set(echo = TRUE)
 
 <br><hr><br>
 
-### Study Note 
 
-#### ML  
+## Study Note 
+
+### ML  
 
 * [ML study index](ML/ML_study_index.html)
 
+### Study link collection
+
+- [study link collection](reference/pages_link.html)
 <br><hr><br>
