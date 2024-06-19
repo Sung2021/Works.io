@@ -18,32 +18,45 @@ knitr::opts_chunk$set(echo=F, message=F, warning=F)
 
 ### THE FESTIVAL OF GENOMICS & BIODATA    
 
-[link](https://festivalofgenomics.com/boston/en/page/boston-home)
+[Event Main Page Link](https://festivalofgenomics.com/boston/en/page/boston-home)
 <br><br><br>
 
 
-### Notes 
+### **Notes** 
 
-**Sanofi Presentation**
 
-[link]()
+#### **Sanofi Presentation**
 
-**Astrazeneca Presentation**
+[Spatial Transcriptomics Application](FB24/FestivalBoston24_Sanofi.html)
 
-[link]()
+* Understanding Tumor Microenvironment in ER+ Breast Cancer using 10x Genomics (Xenium in situ)
+* Spatial Neighborhood analysis
 
-**Takeda Presentation**
+<hr>
+
+#### **Astrazeneca Presentation**
+
+[link](FB24/FestivalBoston24_AZ.html)<br>
+<hr>
+
+#### **Takeda Presentation**
 
 [Single Cell Data Analysis (Bioinformatics Landscape)](FB24/FestivalBoston24_Takeda.html)
 
-**Moderna Presentation**
+* Batch Correction
+* Data Integration
+* Cell Identities
 
-[link]()
+<hr>
 
+#### **Moderna Presentation**
+
+[mRNA vaccine]()
+<hr>
 **Single Cell Worksop**
 
 [link]()
-
+<hr>
 <br><br><br><br>
 
 <!-- <br> Update: "`r format(Sys.Date())`" -->
