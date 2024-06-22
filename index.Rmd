@@ -140,13 +140,13 @@ knitr::opts_chunk$set(echo = TRUE)
 - [Single-cell DNA methylome and 3D multi-omic atlas of the adult mouse brain (2023)](https://www.nature.com/articles/s41586-023-06805-y.pdf)
 - [Galaxy Training](https://training.galaxyproject.org/training-material/topics/epigenetics/tutorials/methylation-seq/tutorial.html)
 - [Epigenomics Workshop 2024: Methylation-Seq part](https://nbis-workshop-epigenomics.readthedocs.io/en/latest/content/tutorials/methylationSeq/Seq_Tutorial.html)
-- The Methylome refers to the total distribution of 5mC throughout the genome. With the advent of the completion of the Human Roadmap Epigenome Project, the methylomes of a large number of human tissues and cell types have been documented and made publicly available through interactive web browsers [9]. In general, the major structural components of the methylome include the CG dinucleotides, CpG islands and CpG island shores (defined as 2000 bp immediately 5′ and 3′ of the CpG island [29]) and shelves (defined as 2000 bp immediately 5′ and 3′ of the shores [29]). The shores and shelves, by definition, are relatively depleted of CG dinucleotides. CpG islands and individual CG sites can also be located in intergenic and intragenic regions, overlapping with exons and introns as well as 5′- and 3′-untranslated regions 
+<!-- - The Methylome refers to the total distribution of 5mC throughout the genome. With the advent of the completion of the Human Roadmap Epigenome Project, the methylomes of a large number of human tissues and cell types have been documented and made publicly available through interactive web browsers [9]. In general, the major structural components of the methylome include the CG dinucleotides, CpG islands and CpG island shores (defined as 2000 bp immediately 5′ and 3′ of the CpG island [29]) and shelves (defined as 2000 bp immediately 5′ and 3′ of the shores [29]). The shores and shelves, by definition, are relatively depleted of CG dinucleotides. CpG islands and individual CG sites can also be located in intergenic and intragenic regions, overlapping with exons and introns as well as 5′- and 3′-untranslated regions  -->
 
 ## Study Note 
 
 ### ML  
 
-* [ML study index](ML/ML_study_index.html)
+* [ML study index](ML/ ML_study_index.html)
 
 ### Study link collection
 
