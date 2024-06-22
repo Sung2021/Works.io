@@ -1,0 +1,148 @@
+---
+title: "scGSVA workflow"
+author: "Sung Rye Park"
+date: "`r format(Sys.Date())`"
+output:  
+  rmdformats::robobook: 
+    code_folding: show  
+    number_sections: FALSE
+    toc_depth: 6
+    toc_float: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=TRUE, warning=FALSE, message=FALSE, results = 'asis')
+options(warn = F)
+
+library(Seurat)
+library(cowplot)
+library(dplyr)
+library(ggplot2)
+library(DT)
+library()
+```
+
+# scGSVA template {.tabset}
+
+This is a guideline to use scGSVA analysis.<br>
+R code that generated the scGSVA score heatmap.<br>
+
+
+**scGSVA (single-cell Gene Set Variation Analysis):** <br>
+
+## Concept
+scGSVA is a method that estimates which groups of genes are active in individual cells by analyzing single-cell data.
+
+## Methodology
+This method ranks genes within each cell and calculates scores for each group of genes to see how active they are in that cell.
+
+## Usage
+scGSVA is ideal for analyzing complex and varied data from single cells, helping to identify different cell types or states.
+
+
+# Import data   
+```{r}
+dir='~/Desktop/DF/DFCI_Paweletz/2024_Daiichi_DXD/'
+obj.srt = readRDS(paste0(dir,'rds/P30342.24.06.07.TcellSubset.rds'))
+```
+
+
+# scGSVA 
+
+scGSVA: GSVA for single cell RNA seq analysis.  
+https://rpubs.com/bioguo/803521.  
+url : devtools::install_github("guokai8/scGSVA").  
+
+
+## Import reference gene set
+
+### Azizi data
+```{r}
+# Import geneset as a long format
+dir='~/Desktop/DF/ref/gmt/'
+celltypes= read.csv(paste0(dir,'azizi.gmt.long_format.csv'), row.names = 1)
+```
+
+### HALLMARK data
+```{r}
+# Import geneset as a long format
+# hallmark <- msigdbr::msigdbr(species = "Homo sapiens", category = "H") %>% dplyr::select(gs_name, gene_symbol)
+# colnames(hallmark) = c('term','gene')
+# celltypes = hallmark
+```
+
+```{r}
+# Define the class "Annot"
+setClass("Annot", representation(
+  species = "character",
+  anntype = "character",
+  keytype = "character",
+  annot = "data.frame"
+))
+
+# Create an instance of the "Annot" class
+df <- data.frame(
+  GeneID = celltypes$gene,
+  GOALL = celltypes$term,
+  Annot = celltypes$term
+)
+
+species <- "human"
+anntype <- "Azizi"
+keytype <- "SYMBOL"
+
+result <- new("Annot",
+              species = species,
+              anntype = anntype,
+              keytype = keytype,
+              annot = df)
+```
+
+
+## Run scGSVA 
+```{r, message=FALSE,results='hide'}
+set.seed(123)   
+library(scGSVA)
+
+# run scGSVA
+gsva.out <- scgsva(obj.srt, result, verbose=FALSE, cores = 8)
+
+# save gsva.out if necessary
+
+```
+
+## Heatmap
+```{r, fig.width=12, fig.height=6}
+# transpose output
+df =t(gsva.out@gsva)
+
+# generate annotation
+df.anno=obj.srt@meta.data[,c('orig.ident','RNA_snn_res.0.2')] %>% 
+  arrange(RNA_snn_res.0.2, orig.ident, .by_group=TRUE)
+
+df.anno=obj.srt@meta.data %>% dplyr::select(orig.ident) %>% 
+  arrange(orig.ident, .by_group=TRUE)
+
+# set color
+my.color=c(colorRampPalette(colors = c("#2874A6","white"))(20), 
+           colorRampPalette(colors = c("white","#D35400"))(80))
+
+# pheatmap::pheatmap(gsva.out@gsva[rownames(df.anno),], cluster_rows = F, 
+#                    cluster_cols = F,
+#                    show_rownames = F,
+#                    annotation_row = df.anno,
+#                    col = my.color)
+
+col_gaps = obj.srt@meta.data$orig.ident %>% table() %>% data.frame() %>% dplyr::select(Freq) %>% pull()
+
+# draw heatmap
+pheatmap::pheatmap(t(gsva.out@gsva[rownames(df.anno),]), 
+                   cluster_rows = T, 
+                   cluster_cols = F,
+                   show_rownames = T, show_colnames = F,
+                   annotation_col = df.anno,
+                   gaps_col = cumsum(col_gaps)[1:3],
+                   fontsize_row = 10,
+                   col = my.color)
+```
+

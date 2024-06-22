@@ -26,56 +26,59 @@ knitr::opts_chunk$set(echo = TRUE, eval = F)
     * doublet removal   
 <br>
 
-* [**Raw data filitering by UMI & mitochondrial content**](https://sung2021.github.io/works.io/samples/processing/scRNA_QC.html)  
-<img src="img/scRNA_umi_filter.png"><br>
+* [**Raw data filitering by UMI & mitochondrial content**](https://sung2021.github.io/works.io/samples/processing/scRNA_QC.html)<br>
+<a href="https://sung2021.github.io/works.io/samples/processing/scRNA_QC.html"><img src="img/scRNA_umi_filter.png"></a><br>
 <br><br>  
 
 ### UMAP/Clustering  
 
   * [**UMAP/Clustering**](scRNA/Daiichi.example.UMAP.html)  
-<img src="img/scRNA_UMAP.png"><br>
+<a href="scRNA/Daiichi.example.UMAP.html"><img src="img/scRNA_UMAP.png"></a><br>
 <br><br>
   * [**Simple Gene Ontology analysis by cluster marker genes**](scRNA/Daiichi2024_30342.24.05.11.clusterGSEA.html)<br>
-<img src="img/scRNA_GSEA.png"><br>
+<a href="scRNA/Daiichi2024_30342.24.05.11.clusterGSEA.html"><img src="img/scRNA_GSEA.png"></a><br>
 <br><br> 
 
 ### Marker gene Analyais   
 
   * [**Marker genes summary report**](scRNA/Daiichi.example.markers.html)  
 <br>
-<img src="img/scRNA_markers.png"><br>
+<a href="scRNA/Daiichi.example.markers.html"><img src="img/scRNA_markers.png"></a><br>
 <br><br>
 <br><br>  
 
 ### Differentially Expressed Genes Analyais   
 
   * [**DEG report**](scRNA/Daiichi2024_30342.DEG.html)<br>
-<img src="img/scRNA_DEG.png"><br>
+<a href="scRNA/Daiichi2024_30342.DEG.html"><img src="img/scRNA_DEG.png"></a><br>
 <br><br>
   
 
 ### Cell Type annotation    
 
   * [**Immune Cell Type Annotation by scType**](scRNA/scRNA_scType.html)<br>  
-<img src="img/scRNA_scType.png"><br>  
+<a href="scRNA/scRNA_scType.html"><img src="img/scRNA_scType.png"></a><br>  
   
   * [**Manual Annotation by marker genes**](scRNA/Daiichi2024_30342.24.05.12.suggestedAnnotation.html)<br>
-<img src="img/scRNA_manual_annotation.png"><br>
+<a href="scRNA/Daiichi2024_30342.24.05.12.suggestedAnnotation.html"><img src="img/scRNA_manual_annotation.png"></a><br>
 <br><br> 
 
 ### Functional analysis  
 
   * [**Population shift**](scRNA/Daiichi2024_30342.24.05.12.analysis_population.html)  
-<img src="img/scRNA_population.png"><br>
+<a href="scRNA/Daiichi2024_30342.24.05.12.analysis_population.html"><img src="img/scRNA_population.png"></a><br>
 
   * [**Gene signature scoring**](scRNA/scRNA_scoring.html)<br>
+    * UCell<br>
+<a href="scRNA/scRNA_scoring.html">
+    <img src="img/scRNA_scoring1.png" alt="scRNA Scoring">
+</a>
   
-<img src="img/scRNA_scoring1.png"><br>  
-  
-  * [**Differentially Exprssed Genes Analysis between selected groups**](scRNA/scRNA_scoring.html)<br>
-
+  <!-- * [**Differentially Exprssed Genes Analysis between selected groups**](scRNA/scRNA_scoring.html)<br> -->
  
-  * [**GSVA**](scRNA/scRNA_scoring.html)   
+  * [**scGSVA**](scRNA/scGSVA_template.html)
+    * scGSVA (single-cell Gene Set Variation Analysis) 
+    * An unsupervised, gene set enrichment method that estimates the activation states of gene sets at the single-cell level
   
   
   
