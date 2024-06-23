@@ -36,7 +36,7 @@ knitr::opts_chunk$set(echo=F, message=F, warning=F)
 
 #### **Astrazeneca Presentation**
 
-[link](FB24/FestivalBoston24_AZ.html)<br>
+[Osimertinib and Drug Tolerant Persister (DTP) Cellls](FB24/FestivalBoston24_AZ.html)<br>
 <hr>
 
 #### **Takeda Presentation**
