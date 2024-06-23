@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="Sung" />
+
+
+<title>AZ Talk</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">AZ Talk</h1>
+<h3 class="subtitle">A gene regulatory switch promotes a new therapeutic
+vulnerability in EGFR inhibitor drug tolerant persister cells</h3>
+<h4 class="author">Sung</h4>
+
+
+
+<div id="introduction" class="section level3">
+<h3>Introduction</h3>
+<p>The clinical trials for osimertinib, a drug approved for use in
+various stages of NSCLC (Non-Small Cell Lung Cancer) treatment.</p>
+<ol style="list-style-type: decimal">
+<li><strong>Drug Information</strong>:
+<ul>
+<li><strong>Osimertinib</strong> is approved for use as an adjuvant,
+first-line, and second-line treatment in NSCLC (Non-Small Cell Lung
+Cancer) patients with either EGFR TKI sensitizing mutations or EGFR
+T790M resistance mutations.</li>
+</ul></li>
+<li><strong>Clinical Trials Data</strong>:
+<ul>
+<li><strong>AURA3 Clinical Trial (2nd Line Treatment)</strong>:
+<ul>
+<li><strong>Note</strong>: Comparison between osimertinib and
+platinum-pemetrexed.</li>
+<li><strong>Results</strong>: Median progression-free survival for
+osimertinib was 10.1 months (95% CI: 8.3–12.3), compared to 4.4 months
+(95% CI: 4.2–5.6) for platinum-pemetrexed.</li>
+<li><strong>Hazard Ratio for Disease Progression or Death</strong>: 0.30
+(95% CI, 0.23–0.41), P&lt;0.001.</li>
+</ul></li>
+<li><strong>FLAURA Clinical Trial (1st Line Treatment)</strong>:
+<ul>
+<li><strong>Note</strong>: Comparison between osimertinib and standard
+EGFR-TKI.</li>
+<li><strong>Results</strong>: Median progression-free survival for
+osimertinib was 18.9 months (95% CI: 15.2–21.4), compared to 10.2 months
+(95% CI: 9.6–11.1) for standard EGFR-TKI.</li>
+<li><strong>Hazard Ratio for Disease Progression or Death</strong>: 0.46
+(95% CI, 0.37–0.57), P&lt;0.001.</li>
+</ul></li>
+</ul></li>
+<li><strong>Additional Information</strong>:
+<ul>
+<li>“Progression to osimertinib (EGFR inhibition) is still a challenge
+for many patients.”</li>
+<li>The data cited in the graphs are from the New England Journal of
+Medicine, published in 2017 and 2018 respectively.</li>
+</ul></li>
+</ol>
+</div>
+<div id="disease-progression-and-drug-resistance" class="section level3">
+<h3>Disease Progression and Drug Resistance</h3>
+<ol style="list-style-type: decimal">
+<li>Expansion of Innate Resistance Clone</li>
+</ol>
+<ul>
+<li><strong>Initial Situation</strong>: Cells exhibit pre-existing
+heterogeneity which fosters resistance.</li>
+<li><strong>Response to Treatment</strong>: Maximum therapeutic response
+is initially observed.</li>
+<li><strong>Progression</strong>: Resistance clone expands, leading to
+disease progression.</li>
+<li><strong>Reactivity to Drug Withdrawal and Rechallenge</strong>:
+Cells are not responsive to drug withdrawal and rechallenge.</li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>Acquired Resistance from Drug Tolerant Persister (DTP) Cells</li>
+</ol>
+<ul>
+<li><strong>Initial Situation</strong>: Drug-tolerant ‘persister’ cells
+generate resistant clones.</li>
+<li><strong>Response to Treatment</strong>: Maximum therapeutic response
+is initially observed.</li>
+<li><strong>Development of Resistance</strong>: De novo resistance from
+DTPs emerges.</li>
+<li><strong>Reactivity to Drug Withdrawal and Rechallenge</strong>:
+Cells are responsive to drug withdrawal and rechallenge.</li>
+</ul>
+<ol start="3" style="list-style-type: decimal">
+<li>Note</li>
+</ol>
+<ul>
+<li><strong>Interrelation of Mechanisms</strong>: These mechanisms are
+not mutually exclusive, implying they may coexist or interact in
+contributing to resistance in patients.</li>
+</ul>
+</div>
+<div id="examining-osimertinib-drug-tolerant-persister-dtp-cells-in-four-egfr-mutant-nsclc-cell-lines-using-rna-seq-and-atac-seq-to-identify-common-gene-regulatory-changes" class="section level3">
+<h3>Examining osimertinib drug tolerant persister (DTP) cells in four
+EGFR mutant NSCLC cell lines using RNA-seq and ATAC-seq to identify
+common gene regulatory changes</h3>
+<ol style="list-style-type: decimal">
+<li>Overview:</li>
+</ol>
+<ul>
+<li><strong>Objective</strong>: To understand common gene regulatory
+changes in osimertinib DTP cells through RNA-seq and ATAC-seq
+analyses.</li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>Experimental Design:</li>
+</ol>
+<ul>
+<li><strong>Cell Lines Used</strong>:
+<ul>
+<li>PC9: Exon 19 deletion (del.)</li>
+<li>NCI-H1975: L858R/T790M mutations</li>
+<li>HCC827: Exon 19 del.</li>
+<li>HCC2935: Exon 19 del.</li>
+</ul></li>
+<li><strong>Treatment Plan</strong>:
+<ul>
+<li>Cells are treated with DMSO, followed by acute osimertinib treatment
+for 24 hours. Further experiments include 3 weeks of osimertinib
+treatment to establish DTPs, followed by a short washout (24 hours) and
+a long washout (~10 days).</li>
+</ul></li>
+</ul>
+<ol start="3" style="list-style-type: decimal">
+<li>Results:</li>
+</ol>
+<ul>
+<li><strong>EGFR Pathway Analysis</strong>:
+<ul>
+<li>EGFR pathway suppression in DTPs was validated both after acute and
+long-term treatment setups.</li>
+<li><strong>Western Blot Analysis</strong>: Showed protein levels for
+phospho-EGFR, EGFR, phospho-p42/p44 (indicative of MAPK activation), and
+p42/p44 across different time points during and after osimertinib
+exposure.
+<ul>
+<li><p><strong>Phospho-EGFR Levels</strong>:</p></li>
+<li><p>A decrease in phosphorylated EGFR is generally observed following
+osimertinib treatment, indicating effective inhibition of EGFR
+activation.</p></li>
+<li><p>Upon washout, there appears to be a reactivation or rebound in
+phospho-EGFR levels in some samples, suggesting some level of resistance
+or adaptation by the cancer cells that allows them to reactivate EGFR
+signaling even after the removal of the drug.</p></li>
+<li><p><strong>Total EGFR Levels</strong>:</p></li>
+<li><p>These remain relatively constant across treatments and washouts,
+indicating that the drug affects the activation state but not the
+expression level of EGFR.</p></li>
+<li><p><strong>Phospho-p42/p44 and p42/p44 Levels</strong>:</p></li>
+<li><p>Changes in phospho-p42/p44 reflect alterations in downstream MAPK
+signaling following EGFR activation/inhibition. The observed variations
+in phosphorylation levels post-treatment can provide insights into how
+signal transduction adapts or is disrupted by osimertinib.</p></li>
+<li><p>The total levels of p42/p44 also seem to remain consistent,
+similar to total EGFR levels.</p></li>
+</ul></li>
+</ul></li>
+</ul>
+<ol start="4" style="list-style-type: decimal">
+<li>Insights:</li>
+</ol>
+<ul>
+<li>The use of acute and washout periods helps in observing the dynamic
+response of DTPs to osimertinib, particularly how these cells reactivate
+signaling pathways after drug withdrawal. This might provide insights
+into the mechanisms behind the persistence and potential resistance of
+cancer cells to treatment.</li>
+</ul>
+</div>
+<div id="gene-expression-in-osimertinib-drug-tolerant-persister-dtp-cells-across-four-egfr-mutant-nsclc-cell-lines-using-rna-seq" class="section level3">
+<h3>Gene expression in osimertinib drug tolerant persister (DTP) cells
+across four EGFR mutant NSCLC cell lines using RNA-seq</h3>
+<p>1.Experimental Design (same design):</p>
+<ul>
+<li><strong>Cell Lines and Mutations</strong>:
+<ul>
+<li>PC9: Exon 19 deletion</li>
+<li>NCI-H1975: L858R/T790M mutations</li>
+<li>HCC827: Exon 19 deletion</li>
+<li>HCC2935: Exon 19 deletion</li>
+</ul></li>
+<li><strong>Treatment Regimen</strong>:
+<ul>
+<li>Cells were treated with DMSO (control), followed by osimertinib for
+24 hours (acute), then continuously for 3 weeks to establish DTPs. This
+was followed by a short washout (24 hours) and a long washout (~10
+days).</li>
+</ul></li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li><p>Observations:</p>
+<p>A. <strong>RNA-seq Data Visualization</strong>:</p>
+<ul>
+<li>The gene expression here is Z-scored exprssion, across different
+treatment conditions and time points.</li>
+<li>Clusters of genes (1-4) are identified, with a focus on clusters 1
+and 3.</li>
+</ul>
+<p>B. <strong>Gene Clusters and Pathway Analysis</strong>:</p>
+<ul>
+<li><strong>Cluster 1</strong>: Related to cell-cycle processes.</li>
+<li><strong>Cluster 3</strong>: Related to epithelial-to-mesenchymal
+transition (EMT).</li>
+</ul>
+<p>C. <strong>Gene Expression Patterns</strong>:</p>
+<ul>
+<li>Some gene expression changes induced by osimertinib treatment in DTP
+cells are slow to recover even during the long washout period,
+suggesting durable cellular adaptations or alterations.</li>
+<li>The persistence of EMT-related gene changes is particularly
+noteworthy as EMT is linked to increased cancer cell invasiveness and
+resistance to therapies.</li>
+</ul></li>
+</ol>
+</div>
+<div id="the-impact-of-acute-treatment-and-the-persistence-of-effects-in-drug-tolerant-persister-dtp-cells-along-with-recovery-during-washout-periods" class="section level3">
+<h3>The impact of acute treatment and the persistence of effects in
+drug-tolerant persister (DTP) cells, along with recovery during washout
+periods</h3>
+<p><strong>Heat Map:</strong></p>
+<ol style="list-style-type: decimal">
+<li><strong>Suppression of DNA Replication Genes</strong>:
+<ul>
+<li>Acute osimertinib treatment significantly suppresses the expression
+of many cell cycle and DNA replication genes compared to DMSO.</li>
+<li>In DTP cells, some genes still show suppressed expression but to a
+lesser extent than in acute treatment, suggesting partial adaptation or
+resistance to the drug’s effects on these pathways.</li>
+</ul></li>
+<li><strong>Recovery During Washout</strong>:
+<ul>
+<li>During the short washout period, the expression levels of many of
+these genes begin to return towards baseline (DMSO treatment levels),
+indicating some recovery of normal cell cycle functions.</li>
+<li>The long washout period shows a further normalization of gene
+expression, although some genes still display altered expression levels,
+suggesting lasting effects of osimertinib exposure.</li>
+</ul></li>
+<li><strong>Gene Focus</strong>:</li>
+</ol>
+<ul>
+<li><strong>POL</strong> (DNA polymerase family members)</li>
+<li><strong>MCM</strong> (Minichromosome maintenance complex
+components)</li>
+<li><strong>RFC</strong> (Replication factor C)</li>
+<li><strong>LIG</strong> (DNA ligase)</li>
+<li><strong>PCNA</strong> (Proliferating cell nuclear antigen)</li>
+</ul>
+</div>
+<div id="osimertinib-dtps-versus-acute-treatment-comparison-gsva" class="section level3">
+<h3>Osimertinib DTPs versus acute treatment Comparison (GSVA)</h3>
+<ol style="list-style-type: decimal">
+<li><strong>Top Pathways Identified</strong>:
+<ul>
+<li><strong>Extracellular matrix (ECM) secretion
+signatures</strong></li>
+<li><strong>SMAD signatures</strong></li>
+<li><strong>YAP1 signatures</strong></li>
+</ul></li>
+<li><strong>GSVA (Gene Set Variation Analysis)</strong>:</li>
+</ol>
+<ul>
+<li>The variation of pathway activity across the samples.</li>
+</ul>
+<ol start="3" style="list-style-type: decimal">
+<li><strong>Comparison of ECM-related pathway activity using
+GSVA</strong>:</li>
+</ol>
+<ul>
+<li>A significant increase in ECM-related activities is noted in DTP
+cells compared to acute treatment, suggesting that DTP cells may employ
+ECM remodeling as a mechanism to survive drug treatment and possibly
+contribute to drug resistance.</li>
+</ul>
+</div>
+<div id="summary-so-far-osimertinib-drug-tolerant-persister-dtp-cells-exhibit-significant-changes-in-gene-expression-related-to-extracellular-matrix-ecm-secretion-and-related-signaling-pathways-compared-to-cells-treated-acutely." class="section level3">
+<h3>(Summary so far) Osimertinib drug-tolerant persister (DTP) cells
+exhibit significant changes in gene expression related to extracellular
+matrix (ECM) secretion and related signaling pathways compared to cells
+treated acutely.</h3>
+<p>(Next part continues.. later)</p>
+<hr />
+<p><br><br><br><br></p>
+<!-- <br> Update: "2024-06-23" -->
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
