@@ -1,0 +1,381 @@
+---
+title: "2024 Daiichi DS-1062a"
+subtitle: "bulk RNA-seq"
+author: "Sung Rye Park"
+date: "`r format(Sys.Date())`"
+output:  
+  rmdformats::robobook: 
+    code_folding: hide 
+    number_sections: FALSE
+    toc_depth: 6
+    toc_float: false
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=F, fig.align = "left", 
+                      message=F, warning=F,
+                      results = "markup",
+                      error = TRUE,
+                      highlight = TRUE,
+                      prompt = FALSE,
+                      tidy = FALSE)
+```
+
+```{r}
+library(dplyr)
+library(ggplot2)
+library(DT)
+```
+
+
+```{r}
+dir = "~/Desktop/DF/DFCI_Paweletz/2024_Daiichi_bulk_RNAseq/"
+```
+
+
+```{r}
+count_TPM_matrix_all = readRDS(paste0(dir,"raw_data/30342/star30342_rawData.rds"))
+```
+
+
+```{r}
+counts = count_TPM_matrix_all$count
+
+# rename column names 
+colnames(counts)= sub("_Count", "", colnames(counts))
+rownames(counts) = counts$SYMBOL
+counts = counts[,-1]
+
+# Remove genes with no expression across samples 
+counts = counts[rowSums(counts) !=0,]
+# counts %>% nrow() # 22845
+```
+
+
+```{r}
+tpms = count_TPM_matrix_all$TPM
+
+# rename column names 
+colnames(tpms)= sub("_TPM", "", colnames(tpms))
+rownames(tpms) = tpms$SYMBOL
+tpms = tpms[,-1]
+
+# match the rownames with counts 
+tpms = tpms[rownames(counts),]
+# tpms %>% nrow() # 22845
+```
+
+## DEG analysis
+
+Differentially Expressed Genes were collected by the following comparisons. 
+
+
+##### 1. DxD vs DMSO 
+```{r}
+library(DESeq2)
+count.mtx = counts
+cont = "DMSO"
+tret = "DXD"
+cols = c(c(1:3), c(4:6))
+cond = c(rep(cont,3),
+         rep(tret,3))
+count.mtx = count.mtx[, cols]
+# Generate info table
+info <- data.frame(matrix(nrow = ncol(count.mtx), ncol = 2))
+colnames(info) <- c('sample', 'cond')
+info$sample <- colnames(count.mtx)
+info$cond <- cond
+
+# DESeq
+dds <- DESeqDataSetFromMatrix(count.mtx, info, ~ cond)
+dds <- DESeq(dds)
+res <- results(dds)
+
+res <- data.frame(res)
+```
+
+```{r}
+fc = 1.5
+pval = 0.05
+
+res = res %>% mutate(DE=ifelse(log2FoldChange >= log2(fc) & pvalue < pval, 'UP',
+                               ifelse(log2FoldChange <= -log2(fc) & pvalue < pval, 'DN','no_sig')))
+res$DE = factor(res$DE, levels = c('UP','DN','no_sig'))
+
+res1 = res
+```
+
+
+##### 2. IgG vs DMSO {.tabset}
+```{r}
+library(DESeq2)
+count.mtx = counts
+cont = "DMSO"
+tret = "IgG"
+cols = c(c(1:3), c(7:9))
+cond = c(rep(cont,3),
+         rep(tret,3))
+count.mtx = count.mtx[, cols]
+# Generate info table
+info <- data.frame(matrix(nrow = ncol(count.mtx), ncol = 2))
+colnames(info) <- c('sample', 'cond')
+info$sample <- colnames(count.mtx)
+info$cond <- cond
+
+# DESeq
+dds <- DESeqDataSetFromMatrix(count.mtx, info, ~ cond)
+dds <- DESeq(dds)
+res <- results(dds)
+
+res <- data.frame(res)
+```
+
+```{r}
+fc = 1.5
+pval = 0.05
+
+res = res %>% mutate(DE=ifelse(log2FoldChange >= log2(fc) & pvalue < pval, 'UP',
+                               ifelse(log2FoldChange <= -log2(fc) & pvalue < pval, 'DN','no_sig')))
+res$DE = factor(res$DE, levels = c('UP','DN','no_sig'))
+
+res2 = res
+```
+
+
+##### 3. DS-1062a vs DMSO 
+```{r}
+library(DESeq2)
+count.mtx = counts
+cont = "DMSO"
+tret = "DS1062a"
+cols = c(c(1:3), c(10:12))
+cond = c(rep(cont,3),
+         rep(tret,3))
+count.mtx = count.mtx[, cols]
+# Generate info table
+info <- data.frame(matrix(nrow = ncol(count.mtx), ncol = 2))
+colnames(info) <- c('sample', 'cond')
+info$sample <- colnames(count.mtx)
+info$cond <- cond
+
+# DESeq
+dds <- DESeqDataSetFromMatrix(count.mtx, info, ~ cond)
+dds <- DESeq(dds)
+res <- results(dds)
+
+res <- data.frame(res)
+```
+
+```{r}
+fc = 1.5
+pval = 0.05
+
+res = res %>% mutate(DE=ifelse(log2FoldChange >= log2(fc) & pvalue < pval, 'UP',
+                               ifelse(log2FoldChange <= -log2(fc) & pvalue < pval, 'DN','no_sig')))
+res$DE = factor(res$DE, levels = c('UP','DN','no_sig'))
+
+res3 =res
+```
+
+
+```{r}
+deg1 = res1 %>% filter(!(DE =="no_sig")) %>% rownames()
+deg2 = res2 %>% filter(!(DE =="no_sig")) %>% rownames()
+deg3 = res3 %>% filter(!(DE =="no_sig")) %>% rownames()
+
+degs = union(deg1,union(deg2,deg3))
+
+cat(paste0("The number of all DEGs is ", length(degs)))
+```
+
+## KMEANS clustering to identify variable features 
+
+```{r}
+## Prepare input data 
+input.data = tpms[degs,]
+## Scaled
+input.data <- t(apply(input.data, 1, function(x) (x - mean(x)) / sd(x)))
+```
+
+```{r}
+## Define function
+kmeans.k <- function(k, input.data, title) {
+  # Set a consistent seed for reproducibility
+  set.seed(1234)
+  
+  # Perform k-means clustering
+  fit <- kmeans(input.data, centers = k, nstart = k)
+  fit.cluster <- fit$cluster %>% data.frame()
+  
+  # Assign column name for cluster identifiers
+  colnames(fit.cluster) <- 'cluster'
+  
+  # Use row names from the input data
+  rownames(fit.cluster) <- rownames(input.data)
+  
+  # Arrange data frame by cluster for better visualization
+  fit.cluster <- fit.cluster %>% arrange(cluster)
+  
+  # Factorize the cluster numbers to use in the annotation
+  fit.cluster$cluster <- factor(fit.cluster$cluster)
+  
+  # Prepare annotation data frame
+  df.anno <- fit.cluster
+  
+  # Generate a heatmap using pheatmap with specified color palette and settings
+  p <- pheatmap::pheatmap(input.data[rownames(df.anno),], cluster_cols = F, 
+                          cluster_rows = F, show_rownames = F, annotation_row = df.anno,
+                          col = colorRampPalette(c("navy", "white", "red"))(1000),
+                          fontsize_row = 6, fontsize_col = 10,
+                          main = title, gaps_col = c(3,6,9))
+  
+  # Return a list containing the heatmap object and the annotation data frame
+  return(list(plot = p, annotation = df.anno))
+}
+
+```
+
+
+```{r}
+## Perform kmeans clustering
+kmeans.out1=kmeans.k(k = 2, input.data=input.data, title="clusters : 2")
+kmeans.out2=kmeans.k(k = 3, input.data=input.data, title="clusters : 3")
+kmeans.out3=kmeans.k(k = 4, input.data=input.data, title="clusters : 4")
+kmeans.out4=kmeans.k(k = 5, input.data=input.data, title="clusters : 5")
+kmeans.out5=kmeans.k(k = 6, input.data=input.data, title="clusters : 6")
+kmeans.out6=kmeans.k(k = 7, input.data=input.data, title="clusters : 7")
+
+```
+
+### Cluster number : 2
+```{r, fig.width=12, fig.height=10}
+k=2
+kmeans.out=kmeans.k(k = k, input.data=input.data, title= paste0("clusters : ",k))
+kmeans.out$plot
+```
+
+```{r}
+cat("Cluster1 genes 50 selection : ")
+kmeans.out$annotation %>% as.data.frame() %>% filter(cluster==1) %>% rownames() %>% head(50)
+cat("Cluster2 genes 50 selection : ") 
+kmeans.out$annotation %>% as.data.frame() %>% filter(cluster==2) %>% rownames() %>% head(50)
+
+```
+
+### Cluster number : 3
+```{r, fig.width=12, fig.height=10}
+k= 3
+kmeans.out=kmeans.k(k = k, input.data=input.data, title= paste0("clusters : ",k))
+kmeans.out$plot
+```
+
+```{r}
+cat("Cluster1 genes 50 selection : ")
+kmeans.out$annotation %>% as.data.frame() %>% filter(cluster==1) %>% rownames() %>% head(50)
+cat("Cluster2 genes 50 selection : ") 
+kmeans.out$annotation %>% as.data.frame() %>% filter(cluster==2) %>% rownames() %>% head(50)
+
+cat("Cluster3 genes 50 selection : ") 
+kmeans.out$annotation %>% as.data.frame() %>% filter(cluster==3) %>% rownames() %>% head(50)
+
+```
+
+
+### Cluster number : 4
+```{r, fig.width=12, fig.height=10}
+k= 4
+kmeans.out=kmeans.k(k = k, input.data=input.data, title= paste0("clusters : ",k))
+kmeans.out$plot
+```
+
+```{r}
+cat("Cluster1 genes 50 selection : ")
+kmeans.out$annotation %>% as.data.frame() %>% filter(cluster==1) %>% rownames() %>% head(50)
+cat("Cluster2 genes 50 selection : ") 
+kmeans.out$annotation %>% as.data.frame() %>% filter(cluster==2) %>% rownames() %>% head(50)
+cat("Cluster3 genes 50 selection : ") 
+kmeans.out$annotation %>% as.data.frame() %>% filter(cluster==3) %>% rownames() %>% head(50)
+cat("Cluster4 genes 50 selection : ") 
+kmeans.out$annotation %>% as.data.frame() %>% filter(cluster==4) %>% rownames() %>% head(50)
+
+```
+
+### Cluster number : 5
+```{r, fig.width=12, fig.height=10}
+k= 5
+kmeans.out=kmeans.k(k = k, input.data=input.data, title= paste0("clusters : ",k))
+kmeans.out$plot
+```
+
+```{r}
+cat("Cluster1 genes 50 selection : ")
+kmeans.out$annotation %>% as.data.frame() %>% filter(cluster==1) %>% rownames() %>% head(50)
+cat("Cluster2 genes 50 selection : ") 
+kmeans.out$annotation %>% as.data.frame() %>% filter(cluster==2) %>% rownames() %>% head(50)
+cat("Cluster3 genes 50 selection : ") 
+kmeans.out$annotation %>% as.data.frame() %>% filter(cluster==3) %>% rownames() %>% head(50)
+cat("Cluster4 genes 50 selection : ") 
+kmeans.out$annotation %>% as.data.frame() %>% filter(cluster==4) %>% rownames() %>% head(50)
+cat("Cluster5 genes 50 selection : ") 
+kmeans.out$annotation %>% as.data.frame() %>% filter(cluster==5) %>% rownames() %>% head(50)
+
+```
+
+
+### Cluster number : 6
+```{r, fig.width=12, fig.height=10}
+k= 6
+kmeans.out=kmeans.k(k = k, input.data=input.data, title= paste0("clusters : ",k))
+kmeans.out$plot
+```
+
+```{r}
+cat("Cluster1 genes 50 selection : ")
+kmeans.out$annotation %>% as.data.frame() %>% filter(cluster==1) %>% rownames() %>% head(50)
+cat("Cluster2 genes 50 selection : ") 
+kmeans.out$annotation %>% as.data.frame() %>% filter(cluster==2) %>% rownames() %>% head(50)
+cat("Cluster3 genes 50 selection : ") 
+kmeans.out$annotation %>% as.data.frame() %>% filter(cluster==3) %>% rownames() %>% head(50)
+cat("Cluster4 genes 50 selection : ") 
+kmeans.out$annotation %>% as.data.frame() %>% filter(cluster==4) %>% rownames() %>% head(50)
+cat("Cluster5 genes 50 selection : ") 
+kmeans.out$annotation %>% as.data.frame() %>% filter(cluster==5) %>% rownames() %>% head(50)
+cat("Cluster6 genes 50 selection : ") 
+kmeans.out$annotation %>% as.data.frame() %>% filter(cluster==6) %>% rownames() %>% head(50)
+
+```
+
+### Cluster number : 7
+```{r, fig.width=12, fig.height=10}
+k= 7
+kmeans.out=kmeans.k(k = k, input.data=input.data, title= paste0("clusters : ",k))
+kmeans.out$plot
+```
+
+```{r}
+cat("Cluster1 genes 50 selection : ")
+kmeans.out$annotation %>% as.data.frame() %>% filter(cluster==1) %>% rownames() %>% head(50)
+cat("Cluster2 genes 50 selection : ") 
+kmeans.out$annotation %>% as.data.frame() %>% filter(cluster==2) %>% rownames() %>% head(50)
+cat("Cluster3 genes 50 selection : ") 
+kmeans.out$annotation %>% as.data.frame() %>% filter(cluster==3) %>% rownames() %>% head(50)
+cat("Cluster4 genes 50 selection : ") 
+kmeans.out$annotation %>% as.data.frame() %>% filter(cluster==4) %>% rownames() %>% head(50)
+cat("Cluster5 genes 50 selection : ") 
+kmeans.out$annotation %>% as.data.frame() %>% filter(cluster==5) %>% rownames() %>% head(50)
+cat("Cluster6 genes 50 selection : ") 
+kmeans.out$annotation %>% as.data.frame() %>% filter(cluster==6) %>% rownames() %>% head(50)
+cat("Cluster7 genes 50 selection : ") 
+kmeans.out$annotation %>% as.data.frame() %>% filter(cluster==7) %>% rownames() %>% head(50)
+
+```
+
+## Interpretation 
+
+The best k for the kmeans clustering is so far 6. 
+
+
+<br><hr><br>

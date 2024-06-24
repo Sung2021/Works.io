@@ -1,0 +1,191 @@
+---
+title: "2024 Daiichi Dxd"
+subtitle: "Report: 30342"
+author: "Sung Rye Park"
+date: "`r format(Sys.Date())`"
+output:  
+  rmdformats::robobook: 
+    code_folding: hide 
+    number_sections: FALSE
+    toc_depth: 6
+    toc_float: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=T, fig.align = "left", 
+                      message=F, warning=F,
+                      results = "markup",
+                      error = TRUE,
+                      highlight = TRUE,
+                      prompt = FALSE,
+                      tidy = FALSE)
+```
+
+```{r}
+## load required packages
+library(Seurat)
+library(cowplot)
+library(dplyr)
+library(ggplot2)
+library(DT)
+library(paletteer)
+library(forcats)
+```
+
+<br>
+
+
+
+```{r}
+dir= "~/Desktop/DF/DFCI_Paweletz/2024_Daiichi_DXD/"
+obj.srt = readRDS(paste0(dir,"rds/P30342.24.05.07.rds"))
+```
+
+
+## Cancer Cell Subset  
+
+-   Cancer Cell subset
+    -   Cluster5 : Cancer Cell 1 (res 0.2)
+    -   Cluster12 : Cancer Cell 2 (res 0.2)    
+
+## Cancer Cells population {.tabset}
+```{r}
+# Subset
+obj.tmp = subset(obj.srt, RNA_snn_res.0.2 %in% c(5,12))
+```
+
+### Cancer Cells Subset (UMAP)  
+```{r, fig.width=6, fig.height=5}
+orig.ident_fils = paletteer::scale_fill_paletteer_d("ggsci::nrc_npg") 
+DimPlot(obj.tmp, group.by = "orig.ident", pt.size = 0.2) + theme_bw() +
+  ggtitle("Cancer Cells") 
+  # xlim(c(-9, 2.5)) + ylim(c(-6, 5))
+```
+
+```{r}
+orig.ident_fils = paletteer::scale_fill_paletteer_d("ggsci::nrc_npg") 
+```
+
+### Number of Cancer Cells   
+```{r, fig.width=5, fig.height=4}
+res = "orig.ident"
+obj.tmp@meta.data %>% ggplot(aes(!!sym(res), fill=!!sym(res))) + 
+  geom_bar(alpha=0.7, color="grey5", size=0.1) +
+  geom_text(stat="count", aes(label= ..count..), vjust=-0.5, size=3) +
+  orig.ident_fils + 
+  xlab("") + 
+  theme_classic() +
+  theme(legend.title = element_blank(),
+        axis.text.x = element_text(angle = 45, hjust=1)) 
+```
+
+
+### Fraction of Cancer Cells   
+```{r, fig.width=5, fig.height=4}
+res = "orig.ident"
+df = obj.srt@meta.data %>% dplyr::select(!!sym(res),RNA_snn_res.0.2)
+df_all = df %>% dplyr::select(orig.ident) %>% table() %>% as.data.frame()  
+df_subset= df %>% filter(RNA_snn_res.0.2 %in% c(5,12)) %>% dplyr::select(orig.ident) %>% table() %>% as.data.frame()  
+
+df_all$DC= df_subset$Freq
+df_all$DC_fraction= df_subset$Freq/df_all$Freq *100
+colnames(df_all)[2] = "Number_of_all_cells"
+
+orig.ident_fils = paletteer::scale_fill_paletteer_d("ggsci::nrc_npg") 
+
+ggplot(df_all, aes(x = orig.ident, y = DC_fraction, fill = orig.ident)) +
+  geom_col(alpha = 0.7, color = "grey5", size = 0.1) +
+  orig.ident_fils +
+  geom_text(aes(label = round(DC_fraction, 2)), vjust = -0.5, size = 3) +  # 소수점 둘째자리까지 반올림하여 표시
+  theme_classic() +
+  theme(legend.title = element_blank(),
+        axis.text.x = element_text(angle = 45, hjust = 1)) +
+  ylab("Cancer Cell Fraction in the sample") +
+  xlab("")
+```
+
+### Number of subtype Cancer Cells   
+```{r, fig.width=5, fig.height=4}
+res = "orig.ident"
+obj.tmp@meta.data %>% ggplot(aes(!!sym(res), fill=RNA_snn_res.0.2)) + 
+  geom_bar(alpha=0.7, color="grey5", size=0.1) +
+  geom_text(stat="count", aes(label= ..count..), vjust=-1, size=3) +
+  scale_fill_manual(values = c("#eb4c42", "#374f2f")) + 
+  xlab("") + 
+  theme_classic() +
+  theme(legend.title = element_blank(),
+        axis.text.x = element_text(angle = 45, hjust=1)) 
+```
+
+### Number of subtype Caner Cells (%)  
+```{r, fig.width=6, fig.height=4}
+# 데이터를 그룹화하고 각 그룹별로 카운트 및 비율 계산
+data <- obj.tmp@meta.data %>%
+  dplyr::count(orig.ident, RNA_snn_res.0.2) %>%
+  group_by(orig.ident) %>%
+  mutate(percentage = n / sum(n) * 100)
+
+
+# 바 차트 생성
+ggplot(data, aes(x=orig.ident, y=percentage, fill=as.factor(RNA_snn_res.0.2))) +
+  geom_bar(stat="identity", position="fill", color="black", size=0.2, alpha=0.7) +  # 막대를 비율로 채움
+  scale_fill_manual(values = c("#eb4c42", "#374f2f")) +
+  geom_text(aes(label=sprintf("%.1f%%", percentage)), position=position_fill(vjust=0.5), size=4, color="grey5") +
+  labs(x="", y="Percentage", fill="RNA_snn_res.0.2") +
+  theme_classic() +
+  theme(axis.text.x = element_text(angle=45, hjust=1))
+
+```
+
+
+
+```{r, eval=FALSE}
+## Subset Cancer cell population and recluster 
+## perform default analysis
+perform_default_analysis <- function(obj.srt, n_features = 2000, n_pcs = 20, 
+                                     dims_for_neighbors = 1:20, 
+                                     resolutions = c(0.2, 0.4), 
+                                     umap_dims = 1:20) {
+  # Step 1: Find variable features
+  obj.srt <- FindVariableFeatures(obj.srt, 
+                                  selection.method = 'vst', 
+                                  nfeatures = n_features)
+  
+  # Step 2: Scale and normalize data
+  all_genes <- rownames(obj.srt)
+  obj.srt <- NormalizeData(obj.srt)
+  obj.srt <- ScaleData(obj.srt, features = all_genes)
+  
+  # Step 3: Run PCA
+  obj.srt <- RunPCA(obj.srt, 
+                    features = VariableFeatures(object = obj.srt), npcs = n_pcs)
+  
+  # Step 4: Find neighbors
+  obj.srt <- FindNeighbors(obj.srt, dims = dims_for_neighbors)
+  
+  # Step 5: Find clusters
+  obj.srt <- FindClusters(obj.srt, resolution = resolutions)
+  
+  # Step 6: Run UMAP
+  obj.srt <- RunUMAP(obj.srt, dims = umap_dims)
+  
+  # Return the Seurat object with analysis results
+  return(obj.srt)
+}
+
+# apply
+obj.srt <- perform_default_analysis(obj.tmp)
+```
+
+
+
+```{r, eval=FALSE}
+obj.srt %>% saveRDS(paste0(dir,"rds/P30342.24.06.23.CancerCellSubset.rds"))
+```
+
+
+
+
+
+
+<br><br><br>
